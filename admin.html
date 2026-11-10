@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel Admin — AreumiVerse</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="images/logos/logo-f7d5ec1c1c543b1e946a635bb25ed19e.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    table.data select, table.data input { padding: 8px 10px; border: 1px solid #c9c9c9; border-radius: 10px; background: #fff; font-size: 13px; }
+    table.data input { width: 120px; }
+  </style>
+</head>
+<body>
+  <div class="dash">
+    <aside class="side" id="side">
+      <a class="logo" href="index.html"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em>Verse</em></span></a>
+      <button class="side-link active" data-view="mitra"><svg><use href="#i-users"/></svg>Mitra</button>
+      <button class="side-link" data-view="pesanan"><svg><use href="#i-list"/></svg>Semua Pesanan</button>
+      <button class="side-link" data-view="data"><svg><use href="#i-box"/></svg>Data Produk</button>
+      <div class="side-foot">
+        <a class="side-link" href="dashboard.html"><svg><use href="#i-home"/></svg>Dashboard Mitra</a>
+        <button class="side-link" id="logout"><svg><use href="#i-logout"/></svg>Keluar</button>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="topbar">
+        <div style="display:flex;gap:12px;align-items:center">
+          <button class="icon-btn menu-btn" id="menu-btn" aria-label="Buka menu"><svg><use href="#i-menu"/></svg></button>
+          <div><h1 id="view-title">Mitra</h1><p id="sub">Panel admin</p></div>
+        </div>
+        <button class="btn btn-ghost btn-sm" id="reload">Muat ulang</button>
+      </div>
+
+      <section class="view active" id="v-mitra">
+        <div class="stats">
+          <div class="stat"><div class="lbl">Total mitra</div><div class="val" id="s-mitra">0</div></div>
+          <div class="stat"><div class="lbl">Menunggu verifikasi</div><div class="val" id="s-pending">0</div></div>
+          <div class="stat"><div class="lbl">Pesanan baru</div><div class="val" id="s-neworder">0</div><div class="sub">Menunggu pembayaran</div></div>
+          <div class="stat"><div class="lbl">Total modal masuk</div><div class="val" id="s-modal">Rp0</div><div class="sub">Pesanan tidak batal</div></div>
+        </div>
+        <div class="panel"><div class="panel-head"><h2>Daftar mitra</h2></div><div class="table-wrap" id="t-mitra"></div></div>
+      </section>
+
+      <section class="view" id="v-pesanan">
+        <div class="panel"><div class="panel-head"><h2>Semua pesanan</h2></div><div class="table-wrap" id="t-pesanan"></div></div>
+      </section>
+
+      <section class="view" id="v-data">
+        <div class="panel">
+          <div class="panel-head"><h2>Isi data awal</h2></div>
+          <p class="muted" style="margin-bottom:16px">Menyalin 12 contoh produk dan 6 supplier (dari js/data.js) ke Firestore. Data dengan SKU/ID yang sama akan ditimpa. Untuk mengubah produk berikutnya, edit langsung di Firebase Console → Firestore → koleksi <b>produk</b> dan <b>produk_modal</b>.</p>
+          <button class="btn btn-primary" id="seed">Isi produk &amp; supplier</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/firebase-api.js"></script>
+  <script src="js/common.js"></script>
+  <script>
+  (function () {
+    const A = window.Areumi, $ = (s) => document.querySelector(s), $$ = (s) => Array.from(document.querySelectorAll(s));
+    if (A.BACKEND !== "firebase") { document.body.innerHTML = '<div class="auth-main"><div class="auth-box"><h1>Panel Admin</h1><p class="muted">Panel admin hanya aktif setelah Firebase dihubungkan di js/config.js.</p><p style="margin-top:20px"><a class="btn btn-primary" href="index.html">Kembali</a></p></div></div>'; return; }
+    const TITLES = { mitra: "Mitra", pesanan: "Semua Pesanan", data: "Data Produk" };
+    const go = (v) => { $$(".view").forEach((x) => x.classList.toggle("active", x.id === "v-" + v)); $$(".side-link[data-view]").forEach((b) => b.classList.toggle("active", b.dataset.view === v)); $("#view-title").textContent = TITLES[v]; $("#side").classList.remove("open"); };
+    $$(".side-link[data-view]").forEach((b) => b.addEventListener("click", () => go(b.dataset.view)));
+    $("#menu-btn").addEventListener("click", () => $("#side").classList.toggle("open"));
+    $("#logout").addEventListener("click", async () => { await A.api.logout(); A.session.clear(); location.replace("login.html"); });
+
+    const opt = (list, cur) => list.map((v) => `<option${v === cur ? " selected" : ""}>${v}</option>`).join("");
+    const USTATUS = ["Menunggu Verifikasi", "Aktif", "Nonaktif"], LEVEL = ["Dropshipper", "Reseller", "Brand Owner"];
+    const OSTATUS = ["Menunggu Pembayaran", "Diproses", "Dikirim", "Selesai", "Dibatalkan"];
+    let users = [], orders = [];
+
+    function render() {
+      $("#s-mitra").textContent = users.length;
+      $("#s-pending").textContent = users.filter((u) => u.status === "Menunggu Verifikasi").length;
+      $("#s-neworder").textContent = orders.filter((o) => o.status === "Menunggu Pembayaran").length;
+      $("#s-modal").textContent = A.rupiah(orders.filter((o) => o.status !== "Dibatalkan").reduce((a, o) => a + (Number(o.total_modal) || 0), 0));
+      $("#t-mitra").innerHTML = users.length ? `<table class="data"><thead><tr><th>ID</th><th>Nama / Toko</th><th>WhatsApp</th><th>Kota</th><th>Kanal · Minat</th><th>Daftar</th><th>Status</th><th>Level</th></tr></thead><tbody>${users.map((u) => `
+        <tr><td><b>${A.esc(u.id)}</b></td><td>${A.esc(u.nama)}<br><span class="small muted">${A.esc(u.nama_toko || "-")} · ${A.esc(u.email)}</span></td>
+        <td><a href="https://wa.me/${A.esc(u.whatsapp)}" target="_blank" rel="noopener">${A.esc(u.whatsapp)}</a></td><td>${A.esc(u.kota)}</td>
+        <td>${A.esc(u.platform)}<br><span class="small muted">${A.esc(u.minat)}</span></td><td>${A.esc(A.fmtDate(u.tanggal))}</td>
+        <td><select data-u="${A.esc(u._id)}" data-k="status">${opt(USTATUS, u.status)}</select></td>
+        <td><select data-u="${A.esc(u._id)}" data-k="level">${opt(LEVEL, u.level)}</select></td></tr>`).join("")}</tbody></table>` : '<div class="empty">Belum ada mitra.</div>';
+      $("#t-pesanan").innerHTML = orders.length ? `<table class="data"><thead><tr><th>No. Order</th><th>Tanggal</th><th>Mitra</th><th>Produk</th><th>Penerima</th><th class="num">Modal</th><th>Ongkir</th><th>Resi</th><th>Status</th><th></th></tr></thead><tbody>${orders.map((o) => `
+        <tr data-o="${A.esc(o._id)}"><td><b>${A.esc(o.id)}</b></td><td>${A.esc(A.fmtDate(o.tanggal))}</td><td>${A.esc(o.nama_dropshipper)}<br><span class="small muted">${A.esc(o.nama_toko || o.user_id)}</span></td>
+        <td>${A.esc(o.nama_produk)}<br><span class="small muted">${A.esc(o.warna)} · ${A.esc(o.ukuran)} · ${A.esc(o.qty)} pcs</span></td>
+        <td>${A.esc(o.nama_penerima)} (${A.esc(o.hp_penerima)})<br><span class="small muted">${A.esc(o.alamat)} · ${A.esc(o.ekspedisi)}</span></td>
+        <td class="num">${A.rupiah(o.total_modal)}</td><td><input type="number" min="0" step="500" data-f="ongkir" value="${Number(o.ongkir) || ""}"></td>
+        <td><input data-f="resi" value="${A.esc(o.resi || "")}"></td><td><select data-f="status">${opt(OSTATUS, o.status)}</select></td>
+        <td><button class="btn btn-dark btn-sm" data-save>Simpan</button></td></tr>`).join("")}</tbody></table>` : '<div class="empty">Belum ada pesanan.</div>';
+    }
+
+    $("#t-mitra").addEventListener("change", async (e) => {
+      const s = e.target.closest("select[data-u]"); if (!s) return;
+      try { await A.api.adminSetUser({ uid: s.dataset.u, [s.dataset.k]: s.value }); A.toast("Mitra diperbarui", "success"); const u = users.find((x) => x._id === s.dataset.u); u[s.dataset.k] = s.value; render(); }
+      catch (err) { A.toast(err.message, "error"); }
+    });
+    $("#t-pesanan").addEventListener("click", async (e) => {
+      const b = e.target.closest("[data-save]"); if (!b) return;
+      const tr = b.closest("tr"), get = (f) => tr.querySelector(`[data-f="${f}"]`).value;
+      b.disabled = true;
+      try { await A.api.adminSetOrder({ _id: tr.dataset.o, status: get("status"), resi: get("resi"), ongkir: get("ongkir") }); A.toast("Pesanan diperbarui", "success"); await load(); }
+      catch (err) { A.toast(err.message, "error"); }
+      b.disabled = false;
+    });
+    $("#seed").addEventListener("click", async (e) => {
+      if (!confirm("Salin data contoh produk & supplier ke Firestore? Data dengan SKU yang sama akan ditimpa.")) return;
+      e.target.disabled = true;
+      try { const r = await A.api.adminSeed(); A.toast(`Berhasil: ${r.produk} produk, ${r.supplier} supplier`, "success"); }
+      catch (err) { A.toast(err.message, "error"); }
+      e.target.disabled = false;
+    });
+
+    async function load() {
+      [users, orders] = await Promise.all([A.api.adminUsers(), A.api.adminOrders()]);
+      render();
+    }
+    $("#reload").addEventListener("click", () => load().then(() => A.toast("Data diperbarui")));
+
+    (async () => {
+      try {
+        const me = await A.api.me();
+        if (!me.is_admin) { document.querySelector(".main").innerHTML = '<div class="empty" style="margin-top:40px">Akun ini bukan admin. Tambahkan dokumen <b>admins/' + A.esc(me.uid) + '</b> di Firestore (lihat SETUP-FIREBASE.md).</div>'; return; }
+        $("#sub").textContent = "Masuk sebagai " + me.nama;
+        await load();
+      } catch (err) { A.session.clear(); location.replace("login.html"); }
+    })();
+  })();
+  </script>
+</body>
+</html>
