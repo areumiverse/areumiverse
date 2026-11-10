@@ -682,16 +682,114 @@ table.data td:first-child, table.data .badge { white-space: nowrap; }
   .promo-x { width: 36px; height: 36px; top: 8px; right: 8px; }
 }
 
-/* ---------- Hero: pengumuman DapurBadjoe ---------- */
-.hero-pill { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; margin-bottom: 22px; padding: 6px 14px 6px 6px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(10px); color: #fff; text-decoration: none; font-size: 14px; line-height: 1.3; transition: background .2s; }
-.hero-pill:hover { background: rgba(255,255,255,.2); }
-.hero-pill-tag { flex: none; background: var(--accent); color: var(--ink); font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; }
-.hero-pill-txt { min-width: 0; }
-.hero-pill strong { font-weight: 700; }
-.hero-pill-sub { color: #d4d4d4; }
-.hero-pill svg { flex: none; width: 16px; height: 16px; }
+/* =========================================================
+   HERO — Jasa Sablon, DTF & Baju Custom (DapurBadjoe)
+   ========================================================= */
+:root { --maroon: #8c1d40; --maroon-2: #6e1431; }
+.nav-links a.nav-hl { background: var(--maroon); color: #fff; opacity: 1; padding: 8px 16px; margin: -8px 0; border-radius: 999px; display: inline-block; }
+.nav-links a.nav-hl:hover { background: var(--maroon-2); text-decoration: none; }
+
+.hero-bg img { object-position: 72% 22%; }
+.hero-bg::after { background:
+  linear-gradient(90deg, rgba(10,10,10,.92) 0%, rgba(10,10,10,.75) 34%, rgba(10,10,10,.15) 62%, rgba(10,10,10,0) 80%),
+  linear-gradient(0deg, rgba(10,10,10,.45), transparent 40%); }
+.hero-wave { position: absolute; left: 0; right: 0; bottom: 0; height: 190px; color: var(--maroon); pointer-events: none; }
+.hero-wave svg { width: 100%; height: 100%; display: block; }
+
+.hero-grid { display: grid; grid-template-columns: minmax(0, 600px) minmax(0, 1fr); gap: 32px; align-items: end; }
+.hero-text { min-width: 0; }
+.hero-pill2 { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; margin-bottom: 22px; padding: 9px 20px 9px 14px; border-radius: 999px; background: var(--maroon); border: 1.5px solid rgba(255,255,255,.35); color: #fff; text-decoration: none; font-size: 16px; font-weight: 600; line-height: 1.3; }
+.hero-pill2:hover { background: var(--maroon-2); }
+.hero-pill2 svg { flex: none; width: 20px; height: 20px; }
+.hero-pill2 b { font-weight: 800; }
+
+.hero h1 { font-size: clamp(40px, 5.4vw, 80px); line-height: 1.06; letter-spacing: -0.04em; margin: 0 0 22px; max-width: none; }
+.hero h1 em { position: relative; display: inline-block; padding-bottom: .12em; }
+.hero h1 em::after { content: ""; position: absolute; left: 6%; right: 18%; bottom: -.08em; height: .14em; background: var(--accent); border-radius: 50%; transform: rotate(-2deg); }
+.hero .lead { color: #e5e5e5; max-width: 540px; }
+
+.hero-feats { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 12px 26px; font-size: 15px; font-weight: 500; }
+.hero-feats li { display: flex; align-items: center; gap: 8px; }
+.hero-feats svg { width: 22px; height: 22px; color: var(--accent); flex: none; }
+
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn-lime { background: var(--accent); color: var(--ink); font-weight: 700; }
+.btn-lime:hover { background: #c6e43a; }
+.btn-outline-light { background: rgba(0,0,0,.25); color: #fff; border-color: rgba(255,255,255,.85); font-weight: 600; }
+.btn-outline-light:hover { background: rgba(255,255,255,.12); }
+.hero-ctas .btn { padding: 15px 26px; font-size: 16px; }
+.hero-ctas .btn svg { width: 20px; height: 20px; }
+
+.hero-services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; justify-self: end; width: 100%; max-width: 780px; }
+.svc { position: relative; display: flex; flex-direction: column; background: #fff; color: var(--ink); border-radius: 22px; padding: 8px 8px 18px; text-decoration: none; box-shadow: 0 18px 40px rgba(0,0,0,.28); border: 3px solid rgba(255,255,255,.9); transition: transform .2s; }
+.svc:hover { transform: translateY(-4px); }
+.svc img { width: 100%; height: auto; aspect-ratio: 238 / 128; object-fit: cover; border-radius: 16px; display: block; }
+.svc-ic { width: 46px; height: 46px; margin: -26px 0 0 8px; border-radius: 50%; background: var(--maroon); color: #fff; display: grid; place-items: center; border: 3px solid #fff; }
+.svc-ic svg { width: 22px; height: 22px; }
+.svc b { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; margin: 8px 10px 4px; }
+.svc > span:last-child { font-size: 14px; color: var(--muted); margin: 0 10px; line-height: 1.4; }
+
+@media (max-width: 1300px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .hero-services { justify-self: stretch; max-width: none; }
+}
 @media (max-width: 640px) {
-  .hero-pill { font-size: 13px; margin-bottom: 16px; border-radius: 18px; }
-  .hero-pill-sub { display: block; }
-  .hero-pill-dot { display: none; }
+  .hero-bg img { object-position: 64% 20%; }
+  .hero-bg::after { background: linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.78) 45%, rgba(10,10,10,.9) 100%); }
+  .hero-wave { height: 110px; }
+  .hero-pill2 { font-size: 14px; padding: 8px 16px 8px 12px; margin-bottom: 16px; border-radius: 18px; }
+  .hero h1 { font-size: clamp(36px, 10.5vw, 52px); line-height: 1.08; }
+  .hero-feats { gap: 10px 18px; font-size: 14px; }
+  .hero-ctas .btn { flex: 1 1 100%; }
+  /* kartu layanan: geser horizontal */
+  .hero-services { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 16px; gap: 12px; width: calc(100% + 32px); max-width: none; margin: 0 -16px; padding: 4px 16px 10px; scrollbar-width: none; }
+  .hero-services::-webkit-scrollbar { display: none; }
+  .svc { flex: 0 0 74%; scroll-snap-align: start; }
+}
+@media (max-height: 640px) { .hero-feats { margin-top: 18px; } .hero-ctas { margin-top: 20px; } }
+
+/* ---------- Tentang: AreumiVerse (wadah) × DapurBadjoe (workshop) ---------- */
+.eco { display: grid; grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr); align-items: stretch; }
+.eco-card { border-radius: var(--radius-lg); padding: 36px; display: flex; flex-direction: column; gap: 12px; }
+.eco-av { background: var(--ink); color: #fff; }
+.eco-db { background: var(--maroon); color: #fff; }
+.eco-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.eco-logo { width: 56px; height: 56px; border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden; flex: none; color: var(--maroon); }
+.eco-logo img { width: 100%; height: 100%; object-fit: cover; }
+.eco-logo svg { width: 28px; height: 28px; }
+.eco-role { font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 999px; background: var(--accent); color: var(--ink); }
+.eco-card h3 { font-size: clamp(28px, 3vw, 38px); letter-spacing: -0.04em; }
+.eco-card > p { color: rgba(255,255,255,.75); font-size: 16px; }
+.eco-card ul { list-style: none; padding: 18px 0 0; margin: 6px 0 0; display: grid; gap: 12px; border-top: 1px solid rgba(255,255,255,.18); font-size: 15px; }
+.eco-card li { display: flex; gap: 10px; }
+.eco-card li svg { width: 18px; height: 18px; flex: none; margin-top: 2px; color: var(--accent); }
+.eco-link { display: grid; place-items: center; }
+.eco-link svg { width: 40px; height: 40px; padding: 10px; border-radius: 50%; background: var(--accent); color: var(--ink); }
+.eco-flow { list-style: none; counter-reset: f; padding: 0; margin: 16px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.eco-flow li { counter-increment: f; background: var(--soft); border-radius: var(--radius); padding: 20px 22px; display: flex; flex-direction: column; gap: 2px; }
+.eco-flow li::before { content: counter(f, decimal-leading-zero); font-size: 13px; font-weight: 700; color: var(--maroon); margin-bottom: 6px; }
+.eco-flow b { font-size: 17px; letter-spacing: -0.02em; }
+.eco-flow span { font-size: 14px; color: var(--muted); }
+@media (max-width: 800px) {
+  .eco { grid-template-columns: minmax(0, 1fr); }
+  .eco-link { height: 48px; }
+  .eco-link svg { transform: rotate(90deg); }
+  .eco-flow { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+}
+@media (max-width: 640px) { .eco-card { padding: 24px; } }
+/* hero: 3 tombol (Pesan Sablon, Join Dropship, Lihat Katalog) */
+.hero-ctas { gap: 10px; }
+.hero-ctas .btn { padding: 14px 22px; }
+@media (max-width: 640px) {
+  .hero-ctas .btn-lime { flex: 1 1 100%; }
+  .hero-ctas .btn-light, .hero-ctas .btn-outline-light { flex: 1 1 0; padding-inline: 12px; font-size: 15px; }
+}
+@media (min-width: 1301px) {
+  .hero-grid { grid-template-columns: minmax(0, 660px) minmax(0, 1fr); gap: 28px; }
+  .hero-ctas { flex-wrap: nowrap; }
+  .hero-ctas .btn { padding: 14px 20px; white-space: nowrap; }
+}
+@media (min-width: 1301px) and (max-width: 1400px) {
+  .hero-ctas .btn { padding: 13px 16px; font-size: 15px; }
+  .svc b { font-size: 17px; }
 }

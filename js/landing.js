@@ -33,14 +33,8 @@
     }, 900);
   }
 
-  /* ---------- Hero: isi nomor WA lalu lanjut ke form daftar ---------- */
-  $("#hero-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const v = $("#hero-wa").value.trim();
-    if (v) $("#r-wa").value = v;
-    $("#daftar").scrollIntoView();
-    setTimeout(() => $("#r-nama").focus({ preventScroll: true }), 500);
-  });
+  /* ---------- Hero: tombol pesan sablon → WhatsApp ---------- */
+  $("#hero-sablon").href = A.waLink("Halo Admin AreumiVerse / DapurBadjoe, saya ingin pesan sablon / baju custom.\n\nLayanan: (Sablon manual / Sablon DTF / Baju custom)\nJenis baju: \nJumlah pcs: \nDesain: (sudah ada / perlu dibantu)\nTarget selesai: ");
 
   /* ---------- Bar aksi HP: sembunyikan saat form daftar / FAQ / footer terlihat ---------- */
   const mbar = $(".mobile-bar");
