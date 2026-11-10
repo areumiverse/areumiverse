@@ -37,6 +37,9 @@
     const salam = h < 11 ? "Selamat pagi" : h < 15 ? "Selamat siang" : h < 19 ? "Selamat sore" : "Selamat malam";
     $("#greet").textContent = `${salam}, ${name.split(" ")[0]}${me.nama_toko ? " · " + me.nama_toko : ""}`;
     const pending = String(me.status || "").toLowerCase() !== "aktif";
+    if (me.is_admin && !$("#admin-link")) {
+      $("#logout").insertAdjacentHTML("beforebegin", '<a class="side-link" id="admin-link" href="admin.html"><svg><use href="#i-shield"/></svg>Panel Admin</a>');
+    }
     $("#verify-slot").innerHTML = pending ? `<div class="verify-banner"><span>Akun Anda berstatus <b>${A.esc(me.status || "Menunggu Verifikasi")}</b>. Pesanan tetap bisa dibuat, admin akan mengaktifkan akun setelah konfirmasi.</span><a class="btn btn-sm btn-wa" target="_blank" rel="noopener" href="${A.waLink("Halo Admin, mohon verifikasi akun dropshipper saya. ID: " + (me.id || "-") + ", Nama: " + name)}"><svg><use href="#i-wa"/></svg>Minta verifikasi</a></div>` : "";
     const pf = $("#profile-form");
     ["nama", "nama_toko", "email", "kota", "platform"].forEach((k) => { pf[k].value = me[k] || ""; });

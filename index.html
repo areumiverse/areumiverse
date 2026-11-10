@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AreumiVerse — Supplier &amp; Dropship Pakaian Profesional</title>
-  <meta name="description" content="Gabung jadi dropshipper pakaian AreumiVerse: kaos polos, baju anak, kemeja kantor, hingga produksi brand sendiri. Tanpa stok, kirim atas nama toko Anda.">
+  <title>AreumiVerse — Platform Dropship &amp; Produksi Pakaian</title>
+  <meta name="description" content="Mulai bisnis pakaian tanpa stok bersama AreumiVerse: kaos polos, baju anak, kemeja kantor, hingga produksi brand sendiri. Gratis daftar, kirim atas nama toko Anda.">
   <meta property="og:title" content="AreumiVerse — Dropship Pakaian Profesional">
   <meta property="og:description" content="Kaos polos, baju anak, kemeja kantor & jasa produksi pakaian. Tanpa stok, tanpa biaya daftar.">
   <meta property="og:image" content="banner.png">
-  <meta name="theme-color" content="#c4231f">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/png" href="images/logos/logo-f7d5ec1c1c543b1e946a635bb25ed19e.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,63 +26,54 @@
         <span>Areumi<em>Verse</em></span>
       </a>
       <ul class="nav-links">
-        <li><a href="#kategori">Kategori</a></li>
+        <li><a href="#kategori">Produk</a></li>
         <li><a href="#katalog">Katalog</a></li>
         <li><a href="#supplier">Supplier</a></li>
         <li><a href="#produksi">Produksi</a></li>
-        <li><a href="#cara-kerja">Cara Kerja</a></li>
-        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#cara-kerja">Harga &amp; Level</a></li>
       </ul>
       <div class="nav-cta">
         <a class="btn btn-ghost btn-sm" href="login.html">Masuk</a>
-        <a class="btn btn-primary btn-sm" href="#daftar">Daftar Gratis</a>
+        <a class="btn btn-primary btn-sm" href="#daftar">Mulai gratis</a>
         <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
       </div>
     </div>
     <nav class="mobile-menu" id="mobile-menu" aria-label="Menu seluler">
-      <a href="#kategori">Kategori</a>
+      <a href="#kategori">Produk</a>
       <a href="#katalog">Katalog</a>
       <a href="#supplier">Supplier</a>
       <a href="#produksi">Produksi Pakaian</a>
-      <a href="#cara-kerja">Cara Kerja</a>
+      <a href="#cara-kerja">Harga &amp; Level</a>
       <a href="#faq">FAQ</a>
-      <a class="btn btn-ghost btn-block" href="login.html">Masuk Dashboard</a>
-      <a class="btn btn-primary btn-block" href="#daftar">Daftar Dropshipper</a>
+      <a class="btn btn-ghost btn-block" href="login.html">Masuk</a>
+      <a class="btn btn-primary btn-block" href="#daftar">Mulai gratis</a>
     </nav>
   </header>
 
   <main id="top">
     <!-- ================= HERO ================= -->
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">Supplier &amp; Dropship Pakaian</span>
-          <h1>Jual pakaian berkualitas, <em>tanpa</em> pegang stok.</h1>
-          <p class="lead">AreumiVerse menghubungkan Anda dengan supplier konveksi terverifikasi — kaos polos, baju anak, kemeja kantor, sampai produksi brand Anda sendiri. Kami kirim atas nama toko Anda.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#daftar">Daftar Dropshipper <svg><use href="#i-arrowR"/></svg></a>
-            <a class="btn btn-ghost" href="#katalog">Lihat Katalog</a>
-          </div>
-          <div class="hero-trust">
-            <div><strong>0 Rupiah</strong><span>Biaya pendaftaran</span></div>
-            <div><strong>30–45%</strong><span>Margin rata-rata</span></div>
-            <div><strong>H+1</strong><span>Proses kirim</span></div>
-          </div>
-        </div>
-        <div class="hero-media">
-          <img src="banner.png" alt="Model mengenakan kaos lengan panjang AreumiVerse warna dusty pink dan merah" width="1536" height="1024" fetchpriority="high">
-          <div class="float-card fc-2"><span class="ic ic-brand"><svg><use href="#i-tag"/></svg></span><div><strong>Label toko Anda</strong>Nama pengirim custom</div></div>
-          <div class="float-card fc-1"><span class="ic ic-ok"><svg><use href="#i-truck"/></svg></span><div><strong>Pesanan dikirim</strong>JNE · J&amp;T · SiCepat</div></div>
-        </div>
+      <div class="hero-bg"><img src="banner.png" alt="Model mengenakan kaos lengan panjang AreumiVerse" width="1536" height="1024" fetchpriority="high"></div>
+      <div class="container hero-content">
+        <h1>Jualan pakaian.<br><em>Tanpa</em> stok.</h1>
+        <p class="lead">Kaos polos, baju anak, kemeja kantor, sampai produksi brand sendiri — dari supplier konveksi terverifikasi, dikirim atas nama toko Anda.</p>
+        <form class="hero-form" id="hero-form">
+          <input type="tel" id="hero-wa" inputmode="tel" placeholder="Masukkan nomor WhatsApp" aria-label="Nomor WhatsApp" autocomplete="tel">
+          <button class="btn btn-primary" type="submit">Mulai gratis</button>
+        </form>
+        <p class="hero-note">Gratis selamanya. Tanpa deposit, tanpa minimal order.</p>
+        <div class="hero-badges"><span>Margin 30–45%</span><span>Kirim H+1</span><span>Blind dropship</span><span>Dashboard profit</span></div>
       </div>
     </section>
 
     <div class="strip">
-      <div class="container strip-inner">
-        <div class="strip-item"><svg><use href="#i-shield"/></svg>Supplier terverifikasi</div>
-        <div class="strip-item"><svg><use href="#i-box"/></svg>Tanpa minimal order</div>
-        <div class="strip-item"><svg><use href="#i-image"/></svg>Foto &amp; caption siap posting</div>
-        <div class="strip-item"><svg><use href="#i-chart"/></svg>Dashboard pesanan &amp; profit</div>
+      <div class="container strip-inner" style="padding-inline:32px">
+        <span class="strip-label">Jual di kanal mana saja</span>
+        <span class="strip-item">Shopee</span>
+        <span class="strip-item">TikTok Shop</span>
+        <span class="strip-item">Tokopedia</span>
+        <span class="strip-item">Instagram</span>
+        <span class="strip-item"><svg><use href="#i-wa"/></svg>WhatsApp</span>
       </div>
     </div>
 
@@ -90,15 +81,15 @@
     <section class="section" id="kategori">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Kategori Produk</span>
-          <h2>Empat lini yang paling dicari pembeli</h2>
-          <p>Fokus pada produk fashion dengan perputaran cepat. Klik kategori untuk langsung melihat katalognya.</p>
+          <span class="eyebrow">Produk</span>
+          <h2>Semua yang Anda butuhkan untuk mulai jualan fashion</h2>
+          <p>Empat lini produk dengan perputaran tercepat. Pilih satu, atau jual semuanya dari satu akun.</p>
         </div>
         <div class="cat-grid">
-          <button class="cat-card c1 reveal" data-cat="Kaos Polos"><span class="tag">Best seller</span><div class="art" data-art="Kaos Polos|Merah"></div><div><h3>Kaos Polos</h3><p>Combed 20s–30s, oversize, lengan panjang, hoodie.</p></div></button>
-          <button class="cat-card c2 reveal" data-cat="Baju Anak"><span class="tag">1–12 th</span><div class="art" data-art="Baju Anak|Kuning"></div><div><h3>Baju Anak</h3><p>Kaos, setelan harian, dan piyama katun yang lembut.</p></div></button>
-          <button class="cat-card c3 reveal" data-cat="Kemeja Kantor"><span class="tag">Formal</span><div class="art" data-art="Kemeja Kantor|Biru Muda"></div><div><h3>Kemeja Kantor</h3><p>Oxford, toyobo, japan drill — pria, wanita &amp; seragam.</p></div></button>
-          <button class="cat-card c4 reveal" data-cat="Produksi Pakaian"><span class="tag">Min. 24 pcs</span><div class="art" data-art="Produksi Pakaian|Merah"></div><div><h3>Produksi Pakaian</h3><p>Bikin brand sendiri: sablon, bordir, label &amp; packaging.</p></div></button>
+          <button class="cat-card c1 reveal" data-cat="Kaos Polos"><span class="tag">Best seller</span><div class="art" data-art="Kaos Polos|Hitam"></div><div><h3>Kaos Polos</h3><p>Combed 20s–30s, oversize, lengan panjang &amp; hoodie.</p><span class="go">Lihat produk <svg><use href="#i-arrowR"/></svg></span></div></button>
+          <button class="cat-card c2 reveal" data-cat="Baju Anak"><span class="tag">Usia 1–12 th</span><div class="art" data-art="Baju Anak|Kuning"></div><div><h3>Baju Anak</h3><p>Kaos, setelan harian, dan piyama katun yang lembut.</p><span class="go">Lihat produk <svg><use href="#i-arrowR"/></svg></span></div></button>
+          <button class="cat-card c3 reveal" data-cat="Kemeja Kantor"><span class="tag">Formal &amp; seragam</span><div class="art" data-art="Kemeja Kantor|Biru Muda"></div><div><h3>Kemeja Kantor</h3><p>Oxford, toyobo, japan drill — pria, wanita &amp; seragam.</p><span class="go">Lihat produk <svg><use href="#i-arrowR"/></svg></span></div></button>
+          <button class="cat-card c4 reveal" data-cat="Produksi Pakaian"><span class="tag">Mulai 24 pcs</span><div class="art" data-art="Produksi Pakaian|Putih"></div><div><h3>Produksi Pakaian</h3><p>Bangun brand sendiri: sablon, bordir, label &amp; packaging.</p><span class="go">Lihat layanan <svg><use href="#i-arrowR"/></svg></span></div></button>
         </div>
       </div>
     </section>
@@ -107,16 +98,32 @@
     <section class="section bg-sand" id="katalog">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Contoh Produk</span>
-          <h2>Katalog dropship</h2>
-          <p>Harga yang ditampilkan adalah harga jual saran. Harga modal dropshipper terbuka setelah Anda masuk ke dashboard.</p>
+          <span class="eyebrow">Katalog</span>
+          <h2>Produk siap jual hari ini</h2>
+          <p>Harga yang tampil adalah harga jual saran. Harga modal dropshipper terbuka setelah Anda masuk ke dashboard.</p>
         </div>
         <div class="toolbar">
           <div class="chips" id="cat-chips" role="tablist" aria-label="Filter kategori"></div>
-          <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="q" placeholder="Cari produk atau bahan…" aria-label="Cari produk"></label>
+          <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="q" placeholder="Cari produk atau bahan" aria-label="Cari produk"></label>
         </div>
         <div class="product-grid" id="product-grid">
           <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STATS ================= -->
+    <section class="section bg-ink">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Kenapa AreumiVerse</span>
+          <h2>Dibangun untuk dropshipper yang ingin tumbuh</h2>
+        </div>
+        <div class="big-stats reveal">
+          <div><strong>Rp0</strong><span>Biaya pendaftaran, deposit, dan langganan bulanan</span></div>
+          <div><strong>45%</strong><span>Margin maksimal dari harga modal ke harga jual saran</span></div>
+          <div><strong>H+1</strong><span>Pesanan ready stock dikirim maksimal besok hari</span></div>
+          <div><strong>24</strong><span>Pcs minimal untuk produksi pakaian brand sendiri</span></div>
         </div>
       </div>
     </section>
@@ -125,12 +132,12 @@
     <section class="section" id="supplier">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Jaringan Supplier</span>
-          <h2>Supplier yang cocok untuk dropshipper</h2>
-          <p>Mitra produksi kami tersebar di sentra garmen Bandung, Jakarta, dan Solo. Setiap mitra dikurasi dari kualitas jahitan, kecepatan proses, dan konsistensi stok.</p>
+          <span class="eyebrow">Supplier</span>
+          <h2>Jaringan supplier yang dikurasi</h2>
+          <p>Mitra produksi di sentra garmen Bandung, Jakarta, dan Solo — dipilih dari kualitas jahitan, kecepatan proses, dan konsistensi stok.</p>
         </div>
         <div class="sup-grid" id="sup-grid"></div>
-        <p class="note"><svg><use href="#i-info"/></svg>Kontak langsung supplier tidak dibuka untuk umum. Semua pesanan diproses melalui admin AreumiVerse agar harga, kualitas, dan pengiriman tetap terjamin.</p>
+        <p class="note"><svg><use href="#i-info"/></svg>Kontak supplier tidak dibuka untuk umum. Semua pesanan diproses melalui admin AreumiVerse agar harga, kualitas, dan pengiriman tetap terjamin.</p>
       </div>
     </section>
 
@@ -138,27 +145,25 @@
     <section class="section bg-ink" id="produksi">
       <div class="container prod-grid">
         <div class="reveal">
-          <span class="eyebrow" style="color:var(--rose)">Jasa Produksi Pakaian</span>
-          <h2 class="serif" style="font-size:clamp(30px,4vw,44px);margin:12px 0 14px">Siap naik kelas? Produksi brand Anda sendiri.</h2>
-          <p style="color:#c9c2ba">Dari dropshipper menjadi pemilik brand. Kami bantu dari pemilihan bahan, sampel, hingga barang jadi berlabel nama Anda.</p>
+          <span class="eyebrow">Produksi Pakaian</span>
+          <h2 style="font-size:clamp(36px,5vw,64px);margin:14px 0 20px">Dari dropshipper menjadi pemilik brand.</h2>
+          <p style="color:#a3a3a3;font-size:18px">Kami bantu dari pemilihan bahan, sampel, hingga barang jadi berlabel nama Anda.</p>
           <ol class="prod-steps">
             <li><div><strong>Konsultasi &amp; desain</strong><span>Kirim desain/logo, kami bantu pilih bahan dan teknik sablon atau bordir.</span></div></li>
             <li><div><strong>Sampel 1 pcs</strong><span>Sampel jadi dalam 3–5 hari kerja untuk Anda cek kualitasnya.</span></div></li>
             <li><div><strong>Produksi massal</strong><span>Mulai 24 pcs per desain, estimasi 14–21 hari kerja.</span></div></li>
             <li><div><strong>QC, label &amp; packing</strong><span>Label leher, hangtag, dan plastik custom — siap dijual.</span></div></li>
           </ol>
-          <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-            <a class="btn btn-primary" id="btn-produksi" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Konsultasi Produksi</a>
-          </div>
+          <div style="margin-top:36px"><a class="btn btn-light" id="btn-produksi" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Konsultasi produksi</a></div>
         </div>
         <div class="price-table reveal">
           <h3>Estimasi harga produksi</h3>
-          <p class="small" style="color:#a8a09a">Harga per pcs, sudah termasuk bahan &amp; jahit. Final setelah konsultasi.</p>
+          <p class="small" style="color:#8a8a8a">Per pcs, termasuk bahan &amp; jahit. Harga final setelah konsultasi.</p>
           <table>
             <thead><tr><th>Produk</th><th>MOQ</th><th>Mulai dari</th></tr></thead>
             <tbody>
               <tr><td><strong>Kaos combed 30s + sablon DTF A4</strong></td><td>24 pcs</td><td><strong>Rp58.000</strong></td></tr>
-              <tr><td><strong>Kaos oversize 24s + sablon plastisol</strong></td><td>48 pcs</td><td><strong>Rp67.000</strong></td></tr>
+              <tr><td><strong>Kaos oversize 24s + plastisol</strong></td><td>48 pcs</td><td><strong>Rp67.000</strong></td></tr>
               <tr><td><strong>Hoodie fleece + bordir dada</strong></td><td>24 pcs</td><td><strong>Rp125.000</strong></td></tr>
               <tr><td><strong>Kemeja seragam drill + bordir</strong></td><td>24 pcs</td><td><strong>Rp115.000</strong></td></tr>
               <tr><td><strong>Setelan anak custom</strong></td><td>36 pcs</td><td><strong>Rp49.000</strong></td></tr>
@@ -171,84 +176,86 @@
     <!-- ================= CARA KERJA ================= -->
     <section class="section" id="cara-kerja">
       <div class="container">
-        <div class="section-head center reveal">
-          <span class="eyebrow">Cara Kerja</span>
+        <div class="section-head reveal">
+          <span class="eyebrow">Cara kerja</span>
           <h2>Empat langkah, lalu tinggal jualan</h2>
-          <p>Proses dropship yang rapi dan tercatat, dari daftar sampai paket diterima pembeli.</p>
         </div>
         <div class="steps">
-          <div class="step reveal"><div class="num">01</div><h3>Daftar &amp; verifikasi</h3><p>Isi formulir pendaftaran. Data Anda tersimpan dan admin langsung menerima notifikasi WhatsApp.</p></div>
-          <div class="step reveal"><div class="num">02</div><h3>Akses dashboard</h3><p>Masuk untuk melihat harga modal, stok, foto produk, dan caption siap posting.</p></div>
-          <div class="step reveal"><div class="num">03</div><h3>Jual dengan harga Anda</h3><p>Posting di Shopee, TikTok Shop, Instagram, atau WhatsApp. Margin sepenuhnya milik Anda.</p></div>
-          <div class="step reveal"><div class="num">04</div><h3>Input pesanan</h3><p>Masukkan pesanan di dashboard, transfer modal, kami packing &amp; kirim atas nama toko Anda.</p></div>
+          <div class="step reveal"><div class="num">01</div><h3>Daftar &amp; verifikasi</h3><p>Isi formulir. Data tersimpan otomatis dan admin menerima notifikasi WhatsApp.</p></div>
+          <div class="step reveal"><div class="num">02</div><h3>Buka dashboard</h3><p>Lihat harga modal, stok, foto produk, dan caption siap posting.</p></div>
+          <div class="step reveal"><div class="num">03</div><h3>Jual dengan harga Anda</h3><p>Posting di marketplace atau media sosial. Selisih harga sepenuhnya milik Anda.</p></div>
+          <div class="step reveal"><div class="num">04</div><h3>Kami kirim</h3><p>Input pesanan, transfer modal — kami packing &amp; kirim atas nama toko Anda.</p></div>
         </div>
 
         <div class="tiers">
           <div class="tier reveal">
             <span class="badge">Level 1</span>
             <h3>Dropshipper</h3>
-            <div class="big">Gratis <small>/ selamanya</small></div>
+            <div class="big">Gratis<small>Untuk memulai tanpa risiko</small></div>
             <ul>
-              <li><svg><use href="#i-tick"/></svg>Harga modal dropship untuk semua produk</li>
+              <li><svg><use href="#i-tick"/></svg>Harga modal dropship semua produk</li>
               <li><svg><use href="#i-tick"/></svg>Kirim atas nama toko Anda</li>
               <li><svg><use href="#i-tick"/></svg>Tanpa minimal order</li>
             </ul>
+            <a class="btn btn-primary" href="#daftar" style="margin-top:auto">Mulai gratis</a>
           </div>
           <div class="tier featured reveal">
-            <span class="badge brand">Level 2 · Paling populer</span>
+            <span class="badge accent" style="align-self:flex-start">Paling populer</span>
             <h3>Reseller</h3>
-            <div class="big">Diskon 5% <small>min. 3 lusin/bln</small></div>
+            <div class="big">Diskon 5%<small>Minimal 3 lusin per bulan</small></div>
             <ul>
               <li><svg><use href="#i-tick"/></svg>Semua fasilitas Dropshipper</li>
               <li><svg><use href="#i-tick"/></svg>Potongan harga grosir otomatis</li>
               <li><svg><use href="#i-tick"/></svg>Prioritas stok produk baru</li>
             </ul>
+            <a class="btn btn-light" href="#daftar" style="margin-top:auto">Daftar sekarang</a>
           </div>
           <div class="tier reveal">
-            <span class="badge dark">Level 3</span>
+            <span class="badge">Level 3</span>
             <h3>Brand Owner</h3>
-            <div class="big">Custom <small>mulai 24 pcs</small></div>
+            <div class="big">Custom<small>Produksi mulai 24 pcs</small></div>
             <ul>
-              <li><svg><use href="#i-tick"/></svg>Produksi pakaian dengan merek sendiri</li>
+              <li><svg><use href="#i-tick"/></svg>Produksi dengan merek sendiri</li>
               <li><svg><use href="#i-tick"/></svg>Label, hangtag &amp; packaging custom</li>
               <li><svg><use href="#i-tick"/></svg>Pendampingan pengembangan produk</li>
             </ul>
+            <a class="btn btn-ghost" href="#produksi" style="margin-top:auto">Pelajari produksi</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ================= KEUNTUNGAN ================= -->
-    <section class="section tight bg-sand">
+    <section class="section bg-sand">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Kenapa AreumiVerse</span>
-          <h2>Dibuat untuk dropshipper yang serius</h2>
+          <span class="eyebrow">Fitur</span>
+          <h2>Alat profesional, tanpa ribet</h2>
         </div>
-        <div class="benefit-grid reveal">
-          <div class="benefit"><div class="ic"><svg><use href="#i-box"/></svg></div><h3>Stok tersinkron</h3><p>Stok dan harga dikelola dari satu database, jadi Anda tidak menjual barang kosong.</p></div>
-          <div class="benefit"><div class="ic"><svg><use href="#i-tag"/></svg></div><h3>Blind dropship</h3><p>Tidak ada nota harga atau label supplier di dalam paket. Pembeli hanya melihat nama toko Anda.</p></div>
-          <div class="benefit"><div class="ic"><svg><use href="#i-image"/></svg></div><h3>Materi promosi</h3><p>Foto produk, ukuran (size chart), dan caption siap salin langsung dari dashboard.</p></div>
-          <div class="benefit"><div class="ic"><svg><use href="#i-chart"/></svg></div><h3>Laporan profit</h3><p>Lihat total pesanan, modal, dan keuntungan Anda per bulan secara otomatis.</p></div>
-          <div class="benefit"><div class="ic"><svg><use href="#i-shield"/></svg></div><h3>Garansi tukar</h3><p>Salah ukuran atau cacat produksi? Tukar maksimal 3 hari setelah barang diterima.</p></div>
-          <div class="benefit"><div class="ic"><svg><use href="#i-chat"/></svg></div><h3>Admin responsif</h3><p>Tim admin aktif via WhatsApp setiap hari pukul 08.00–21.00 WIB.</p></div>
+        <div class="benefit-grid">
+          <div class="benefit reveal"><div class="ic"><svg><use href="#i-box"/></svg></div><h3>Stok tersinkron</h3><p>Stok dan harga dikelola dari satu database — tidak ada lagi jual barang kosong.</p></div>
+          <div class="benefit reveal"><div class="ic"><svg><use href="#i-tag"/></svg></div><h3>Blind dropship</h3><p>Tanpa nota harga atau label supplier. Pembeli hanya melihat nama toko Anda.</p></div>
+          <div class="benefit reveal"><div class="ic"><svg><use href="#i-image"/></svg></div><h3>Materi promosi</h3><p>Caption, size chart, dan detail produk siap salin langsung dari dashboard.</p></div>
+          <div class="benefit reveal"><div class="ic"><svg><use href="#i-chart"/></svg></div><h3>Laporan profit</h3><p>Pantau total pesanan, modal, dan keuntungan per bulan secara otomatis.</p></div>
+          <div class="benefit reveal"><div class="ic"><svg><use href="#i-shield"/></svg></div><h3>Garansi tukar</h3><p>Salah ukuran atau cacat produksi? Tukar maksimal 3 hari setelah diterima.</p></div>
+          <div class="benefit reveal"><div class="ic"><svg><use href="#i-chat"/></svg></div><h3>Admin responsif</h3><p>Tim admin aktif via WhatsApp setiap hari pukul 08.00–21.00 WIB.</p></div>
         </div>
       </div>
     </section>
 
     <!-- ================= REGISTER ================= -->
-    <section class="section" id="daftar">
+    <section class="section bg-ink" id="daftar">
       <div class="container reg-wrap">
         <div class="reg-aside reveal">
-          <span class="eyebrow">Pendaftaran</span>
-          <h2>Daftar jadi dropshipper dalam 2 menit</h2>
-          <p class="muted">Setelah formulir dikirim, data Anda tersimpan otomatis dan Anda langsung diarahkan ke WhatsApp admin untuk aktivasi akun.</p>
+          <span class="eyebrow">Daftar</span>
+          <h2>Mulai dalam 2 menit.</h2>
+          <p style="color:#a3a3a3;font-size:18px">Setelah formulir dikirim, data Anda tersimpan otomatis dan Anda langsung diarahkan ke WhatsApp admin untuk aktivasi akun.</p>
           <ul class="checklist">
             <li><svg><use href="#i-check"/></svg><div><strong>Gratis, tanpa deposit</strong><br><span class="muted small">Tidak ada biaya pendaftaran atau biaya bulanan.</span></div></li>
-            <li><svg><use href="#i-check"/></svg><div><strong>Punya minimal 1 kanal jualan</strong><br><span class="muted small">Marketplace, Instagram, TikTok, Facebook, atau WhatsApp Business.</span></div></li>
-            <li><svg><use href="#i-check"/></svg><div><strong>Akun aktif setelah verifikasi</strong><br><span class="muted small">Biasanya kurang dari 1×24 jam pada hari kerja.</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div><strong>Minimal 1 kanal jualan</strong><br><span class="muted small">Marketplace, Instagram, TikTok, Facebook, atau WhatsApp Business.</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div><strong>Aktif setelah verifikasi</strong><br><span class="muted small">Biasanya kurang dari 1×24 jam pada hari kerja.</span></div></li>
           </ul>
-          <p class="small muted">Sudah punya akun? <a href="login.html" style="color:var(--brand);font-weight:700">Masuk ke dashboard</a></p>
+          <p class="small" style="color:#a3a3a3">Sudah punya akun? <a href="login.html" style="color:#fff;font-weight:600">Masuk ke dashboard</a></p>
         </div>
 
         <div class="card reveal">
@@ -276,8 +283,8 @@
             </div>
             <div class="form-foot">
               <div class="alert" id="reg-alert" role="status"></div>
-              <button class="btn btn-primary btn-block" type="submit" id="reg-btn"><svg><use href="#i-wa"/></svg>Daftar &amp; Lanjut ke WhatsApp</button>
-              <p class="small muted" style="text-align:center">Data tersimpan di database AreumiVerse dan hanya digunakan untuk keperluan kemitraan.</p>
+              <button class="btn btn-primary btn-block btn-lg" type="submit" id="reg-btn"><svg><use href="#i-wa"/></svg>Daftar &amp; lanjut ke WhatsApp</button>
+              <p class="small muted" style="text-align:center">Data hanya digunakan untuk keperluan kemitraan AreumiVerse.</p>
             </div>
           </form>
         </div>
@@ -285,51 +292,47 @@
     </section>
 
     <!-- ================= FAQ ================= -->
-    <section class="section bg-sand" id="faq">
+    <section class="section" id="faq">
       <div class="container">
         <div class="section-head center reveal">
           <span class="eyebrow">FAQ</span>
-          <h2>Pertanyaan yang sering diajukan</h2>
+          <h2>Pertanyaan umum</h2>
         </div>
         <div class="faq">
-          <details open><summary>Apakah ada biaya pendaftaran?</summary><p>Tidak. Pendaftaran dropshipper AreumiVerse 100% gratis, tanpa deposit dan tanpa biaya bulanan.</p></details>
+          <details><summary>Apakah ada biaya pendaftaran?</summary><p>Tidak. Pendaftaran dropshipper AreumiVerse 100% gratis, tanpa deposit dan tanpa biaya bulanan.</p></details>
           <details><summary>Bagaimana alur pembayaran pesanan?</summary><p>Setelah input pesanan di dashboard, Anda transfer harga modal + ongkir ke rekening admin. Pesanan diproses setelah pembayaran terkonfirmasi, lalu nomor resi diperbarui di dashboard.</p></details>
           <details><summary>Apakah paket dikirim atas nama toko saya?</summary><p>Ya. Nama dan nomor pengirim menggunakan data toko Anda, tanpa nota harga atau label supplier di dalam paket.</p></details>
-          <details><summary>Berapa minimal order?</summary><p>Untuk produk ready stock tidak ada minimal order — 1 pcs pun kami kirim. Untuk kemeja seragam minimal 12 pcs, dan jasa produksi pakaian mulai 24 pcs per desain.</p></details>
+          <details><summary>Berapa minimal order?</summary><p>Produk ready stock tidak ada minimal order — 1 pcs pun kami kirim. Kemeja seragam minimal 12 pcs, dan jasa produksi pakaian mulai 24 pcs per desain.</p></details>
           <details><summary>Bagaimana jika barang cacat atau salah ukuran?</summary><p>Ajukan klaim maksimal 3 hari setelah barang diterima dengan video unboxing. Kami ganti barang atau refund sesuai kondisi.</p></details>
-          <details><summary>Apakah bisa COD dari marketplace?</summary><p>Bisa. Untuk pesanan marketplace, kirimkan label resi dari marketplace melalui WhatsApp admin, kami yang mencetak dan mengirim.</p></details>
+          <details><summary>Apakah bisa untuk pesanan marketplace (COD)?</summary><p>Bisa. Kirimkan label resi dari marketplace melalui WhatsApp admin, kami yang mencetak dan mengirim.</p></details>
         </div>
       </div>
     </section>
 
-    <section class="section tight">
-      <div class="container">
-        <div class="cta reveal">
-          <div>
-            <h2>Mulai jualan pakaian hari ini, tanpa modal stok.</h2>
-            <p>Daftar gratis, admin kami bantu sampai pesanan pertama Anda terkirim.</p>
-          </div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <a class="btn btn-light" href="#daftar">Daftar Sekarang</a>
-            <a class="btn btn-dark" id="cta-wa" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Tanya Admin</a>
-          </div>
+    <section class="cta-final">
+      <div class="container reveal">
+        <h2>Bisnis pakaian Anda dimulai di sini.</h2>
+        <p>Daftar gratis. Admin kami dampingi sampai pesanan pertama terkirim.</p>
+        <div class="row">
+          <a class="btn btn-light btn-lg" href="#daftar">Mulai gratis</a>
+          <a class="btn btn-outline-light btn-lg" id="cta-wa" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Tanya admin</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer" style="margin-top:0">
+  <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div>
           <a class="logo" href="#top"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em>Verse</em></span></a>
-          <p class="small">Platform dropship &amp; produksi pakaian untuk penjual online Indonesia.</p>
+          <p class="small" style="max-width:300px">Platform dropship &amp; produksi pakaian untuk penjual online Indonesia.</p>
         </div>
         <div><h4>Produk</h4><ul><li><a href="#katalog" data-cat-link="Kaos Polos">Kaos Polos</a></li><li><a href="#katalog" data-cat-link="Baju Anak">Baju Anak</a></li><li><a href="#katalog" data-cat-link="Kemeja Kantor">Kemeja Kantor</a></li><li><a href="#produksi">Produksi Pakaian</a></li></ul></div>
         <div><h4>Program</h4><ul><li><a href="#cara-kerja">Cara Kerja</a></li><li><a href="#supplier">Supplier</a></li><li><a href="#daftar">Daftar</a></li><li><a href="login.html">Masuk Dashboard</a></li></ul></div>
-        <div><h4>Kontak</h4><ul><li><a class="wa-link" href="#" target="_blank" rel="noopener" id="foot-wa">WhatsApp</a></li><li>Senin–Sabtu, 08.00–21.00 WIB</li><li><a href="https://www.areumiverse.com">www.areumiverse.com</a></li></ul></div>
+        <div><h4>Kontak</h4><ul><li><a href="#" target="_blank" rel="noopener" id="foot-wa">WhatsApp</a></li><li>Senin–Sabtu, 08.00–21.00 WIB</li><li><a href="https://www.areumiverse.com">www.areumiverse.com</a></li></ul></div>
       </div>
-      <div class="footer-bottom"><span>© <span id="year"></span> AreumiVerse. Hak cipta dilindungi.</span><span>Dibuat untuk dropshipper Indonesia.</span></div>
+      <div class="footer-bottom"><span>© <span id="year"></span> AreumiVerse</span><span>Indonesia · Bahasa Indonesia</span></div>
     </div>
   </footer>
 
@@ -338,6 +341,7 @@
   <script src="js/icons.js"></script>
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/firebase-api.js"></script>
   <script src="js/common.js"></script>
   <script src="js/landing.js"></script>
 </body>

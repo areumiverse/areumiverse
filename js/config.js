@@ -1,20 +1,29 @@
 /* =========================================================
    KONFIGURASI AREUMIVERSE
    ---------------------------------------------------------
-   1. Deploy file apps-script/Code.gs sebagai Web App
-      (lihat SETUP.md), lalu tempel URL-nya di API_URL.
-   2. Selama API_URL kosong, website berjalan dalam
-      MODE DEMO (data disimpan di browser saja).
+   Backend dipilih otomatis:
+   1. FIREBASE diisi  -> pakai Firebase (Auth + Firestore)
+   2. API_URL diisi   -> pakai Google Apps Script + Spreadsheet
+   3. Keduanya kosong -> MODE DEMO (data di browser saja)
+   Panduan: SETUP-FIREBASE.md
    ========================================================= */
 window.AREUMI_CONFIG = {
-  // URL Web App Google Apps Script, contoh:
-  // "https://script.google.com/macros/s/AKfycbx..../exec"
+  // Tempel dari Firebase Console > Project settings > Your apps > SDK setup and configuration
+  FIREBASE: {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+  },
+
+  // (Alternatif) URL Web App Google Apps Script
   API_URL: "",
 
   // Nomor WhatsApp admin (format internasional tanpa +)
   WA_ADMIN: "628132014101",
   WA_DISPLAY: "+62 813-2014-101",
 
-  BRAND: "AreumiVerse",
-  SPREADSHEET_ID: "1QpbvYW5C66PKSZf5sJTfBy0qucEKcA85bS3t6LioapY"
+  BRAND: "AreumiVerse"
 };

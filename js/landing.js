@@ -4,7 +4,7 @@
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 
-  if (A.DEMO) $("#demo-banner").innerHTML = '<div class="demo-banner">Mode demo: database spreadsheet belum terhubung. Isi API_URL di js/config.js (lihat SETUP.md).</div>';
+  if (A.DEMO) $("#demo-banner").innerHTML = '<div class="demo-banner">Mode demo — spreadsheet belum terhubung. Isi <code>API_URL</code> di js/config.js (lihat SETUP.md).</div>';
   $("#year").textContent = new Date().getFullYear();
 
   /* ---------- Link WhatsApp ---------- */
@@ -12,6 +12,15 @@
   ["#wa-float", "#cta-wa", "#foot-wa"].forEach((s) => { const el = $(s); if (el) el.href = waGeneral; });
   $("#foot-wa").textContent = "WhatsApp " + A.CFG.WA_DISPLAY;
   $("#btn-produksi").href = A.waLink("Halo Admin AreumiVerse, saya ingin konsultasi PRODUKSI PAKAIAN dengan brand sendiri.\n\nJenis produk: \nPerkiraan jumlah: \nTarget selesai: ");
+
+  /* ---------- Hero: isi nomor WA lalu lanjut ke form daftar ---------- */
+  $("#hero-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = $("#hero-wa").value.trim();
+    if (v) $("#r-wa").value = v;
+    $("#daftar").scrollIntoView();
+    setTimeout(() => $("#r-nama").focus({ preventScroll: true }), 500);
+  });
 
   /* ---------- Navbar ---------- */
   const nav = $("#nav"), menu = $("#mobile-menu"), tgl = $("#nav-toggle");

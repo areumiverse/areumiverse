@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard — AreumiVerse Dropshipper</title>
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#1c1917">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/png" href="images/logos/logo-f7d5ec1c1c543b1e946a635bb25ed19e.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div id="demo-banner"></div>
   <div class="dash">
     <aside class="side" id="side">
-      <a class="logo" href="index.html"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em style="color:var(--rose)">Verse</em></span></a>
+      <a class="logo" href="index.html"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em>Verse</em></span></a>
       <button class="side-link active" data-view="ringkasan"><svg><use href="#i-home"/></svg>Ringkasan</button>
       <button class="side-link" data-view="katalog"><svg><use href="#i-grid"/></svg>Katalog &amp; Harga Modal</button>
       <button class="side-link" data-view="order"><svg><use href="#i-cart"/></svg>Buat Pesanan</button>
@@ -137,7 +137,7 @@
               <div class="form-grid">
                 <div class="field"><label for="p-nama">Nama lengkap</label><input id="p-nama" name="nama"></div>
                 <div class="field"><label for="p-toko">Nama toko (pengirim)</label><input id="p-toko" name="nama_toko"></div>
-                <div class="field"><label for="p-email">Email</label><input id="p-email" name="email" type="email"></div>
+                <div class="field"><label for="p-email">Email</label><input id="p-email" name="email" type="email" readonly title="Email dipakai untuk login dan tidak bisa diubah di sini"></div>
                 <div class="field"><label for="p-kota">Kota</label><input id="p-kota" name="kota"></div>
                 <div class="field full"><label for="p-platform">Kanal jualan</label><input id="p-platform" name="platform"></div>
               </div>
@@ -171,6 +171,7 @@
   <script src="js/icons.js"></script>
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/firebase-api.js"></script>
   <script src="js/common.js"></script>
   <script src="js/dashboard.js"></script>
 </body>

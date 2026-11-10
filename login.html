@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Masuk — AreumiVerse Dropshipper</title>
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#c4231f">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/png" href="images/logos/logo-f7d5ec1c1c543b1e946a635bb25ed19e.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div id="demo-banner"></div>
   <div class="auth">
     <aside class="auth-side">
-      <a class="logo" href="index.html"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em style="color:var(--rose)">Verse</em></span></a>
+      <a class="logo" href="index.html"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em>Verse</em></span></a>
       <div>
         <h2>Kelola pesanan dropship Anda dari satu tempat.</h2>
         <p>Harga modal, stok, caption siap posting, input pesanan, dan laporan profit — semuanya di dashboard.</p>
@@ -48,13 +48,28 @@
   <script src="js/icons.js"></script>
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/firebase-api.js"></script>
   <script src="js/common.js"></script>
   <script>
   (function () {
     const A = window.Areumi;
     if (A.DEMO) document.getElementById("demo-banner").innerHTML = '<div class="demo-banner">Mode demo: daftar dulu lewat halaman utama, akun tersimpan di browser ini saja.</div>';
     if (A.session.get()) { location.replace("dashboard.html"); return; }
-    document.getElementById("forgot").href = A.waLink("Halo Admin AreumiVerse, saya lupa password akun dropshipper saya. Nomor WA terdaftar: ");
+    const forgot = document.getElementById("forgot");
+    forgot.href = A.waLink("Halo Admin AreumiVerse, saya lupa password akun dropshipper saya. Nomor WA terdaftar: ");
+    if (A.BACKEND === "firebase") {
+      forgot.textContent = "Lupa password? Kirim link reset ke email";
+      forgot.removeAttribute("target");
+      forgot.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const box = document.getElementById("login-alert"), id = document.getElementById("l-id");
+        if (!id.value.trim()) { id.closest(".field").classList.add("invalid"); id.focus(); return; }
+        try {
+          const masked = await A.api.resetPassword({ identifier: id.value });
+          box.className = "alert show success"; box.textContent = "Link reset password dikirim ke " + masked + ". Cek juga folder spam.";
+        } catch (err) { box.className = "alert show error"; box.textContent = err.message; }
+      });
+    }
     const pw = document.getElementById("l-pw");
     document.getElementById("pw-toggle").addEventListener("click", (e) => { const s = pw.type === "password"; pw.type = s ? "text" : "password"; e.target.textContent = s ? "Sembunyi" : "Lihat"; });
 
