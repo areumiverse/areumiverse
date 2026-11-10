@@ -225,10 +225,10 @@
   const statusClass = (s) => { s = String(s).toLowerCase(); return s.includes("selesai") || s.includes("terkirim") ? "ok" : s.includes("dikirim") || s.includes("proses") ? "info" : s.includes("batal") ? "brand" : "warn"; };
   function orderTable(list) {
     if (!list.length) return '<div class="empty">Belum ada pesanan. <a href="#" data-goto="order" style="color:var(--brand);font-weight:700">Buat pesanan pertama</a>.</div>';
-    return `<table class="data"><thead><tr><th>No. Order</th><th>Tanggal</th><th>Produk</th><th>Penerima</th><th class="num">Qty</th><th class="num">Modal</th><th class="num">Profit</th><th>Status</th><th>Resi</th></tr></thead><tbody>${
-      list.map((o) => `<tr><td><b>${A.esc(o.id)}</b></td><td>${A.esc(A.fmtDate(o.tanggal))}</td><td>${A.esc(o.nama_produk)}<br><span class="small muted">${A.esc(o.warna)} · ${A.esc(o.ukuran)}</span></td>
-        <td>${A.esc(o.nama_penerima)}<br><span class="small muted">${A.esc(o.ekspedisi)}</span></td><td class="num">${A.esc(o.qty)}</td><td class="num">${A.rupiah(o.total_modal)}</td>
-        <td class="num" style="color:var(--ok);font-weight:700">${A.rupiah(o.profit)}</td><td><span class="badge ${statusClass(o.status)}">${A.esc(o.status)}</span></td><td>${A.esc(o.resi || "—")}</td></tr>`).join("")
+    return `<table class="data cards"><thead><tr><th>No. Order</th><th>Tanggal</th><th>Produk</th><th>Penerima</th><th class="num">Qty</th><th class="num">Modal</th><th class="num">Profit</th><th>Status</th><th>Resi</th></tr></thead><tbody>${
+      list.map((o) => `<tr><td data-label="No. Order"><b>${A.esc(o.id)}</b></td><td data-label="Tanggal">${A.esc(A.fmtDate(o.tanggal))}</td><td data-label="Produk"><span>${A.esc(o.nama_produk)}<br><span class="small muted">${A.esc(o.warna)} · ${A.esc(o.ukuran)}</span></span></td>
+        <td data-label="Penerima"><span>${A.esc(o.nama_penerima)}<br><span class="small muted">${A.esc(o.ekspedisi)}</span></span></td><td data-label="Qty" class="num">${A.esc(o.qty)}</td><td data-label="Modal" class="num">${A.rupiah(o.total_modal)}</td>
+        <td data-label="Profit" class="num" style="color:var(--ok);font-weight:700">${A.rupiah(o.profit)}</td><td data-label="Status"><span class="badge ${statusClass(o.status)}">${A.esc(o.status)}</span></td><td data-label="Resi">${A.esc(o.resi || "—")}</td></tr>`).join("")
     }</tbody></table>`;
   }
   function renderOrders() {

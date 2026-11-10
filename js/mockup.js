@@ -205,6 +205,7 @@
     hanger: '<path d="M0 -10 C0 -14 -4 -17 -7 -15 M0 -10 L-19 4 C-21 6 -20 9 -17 9 L17 9 C20 9 21 6 19 4 Z" fill="none" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>',
     roll: '<rect x="-17" y="-11" width="28" height="22" rx="3"/><ellipse cx="11" cy="0" rx="6" ry="11"/><ellipse cx="11" cy="0" rx="2.4" ry="4.4" opacity=".45"/><path d="M-17 11 L-17 17 L4 17" fill="none" stroke-width="3"/>',
     needle: '<path d="M-14 14 L12 -12" stroke-width="4" stroke-linecap="round" fill="none"/><ellipse cx="12" cy="-12" rx="2.6" ry="5.6" transform="rotate(45 12 -12)" fill="none" stroke-width="2"/><path d="M14 -10 C24 0 4 6 -4 -2 C-12 -10 -20 0 -16 8" fill="none" stroke-width="2" opacity=".7"/>',
+    dress: '<path d="M-6 -18 L-4 -10 L-9 -6 L-5 -3 L-15 17 L15 17 L5 -3 L9 -6 L4 -10 L6 -18 L2 -18 C1 -14 -1 -14 -2 -18 Z"/><path d="M-12 11 L12 11" stroke-width="1.6" opacity=".5"/>',
     hood: '<path d="M-10 -16 C-14 -6 -12 -4 -8 -2 L8 -2 C12 -4 14 -6 10 -16 C6 -19 -6 -19 -10 -16 Z"/><path d="M-16 -6 L-11 -4 L-11 16 L11 16 L11 -4 L16 -6 L20 12 L13 13 L12 4"/><path d="M-12 4 L-13 13 L-20 12 Z"/>'
   };
   const LOGOS = {
@@ -213,7 +214,7 @@
     "SUP-03": { icon: "needle", bg: ["#1f3b73", "#2f5fb3"], fg: "#ffffff", shape: "shield" },
     "SUP-04": { icon: "roll", bg: ["#6b4e2e", "#a87a46"], fg: "#fff6e8", shape: "hex" },
     "SUP-05": { icon: "spool", bg: ["#c62a1d", "#ff5a3c"], fg: "#ffffff", shape: "round" },
-    "SUP-06": { icon: "hood", bg: ["#2f4f3a", "#4f7d5f"], fg: "#e6f5d8", shape: "circle" }
+    "SUP-06": { icon: "dress", bg: ["#7a3b69", "#b5629a"], fg: "#fff4fa", shape: "circle" }
   };
   const SHAPES = {
     round: '<rect x="-30" y="-30" width="60" height="60" rx="16"/>',

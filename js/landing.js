@@ -8,7 +8,7 @@
 
   /* ---------- Link WhatsApp ---------- */
   const waGeneral = A.waLink("Halo Admin AreumiVerse, saya ingin bertanya tentang program dropshipper.");
-  ["#wa-float", "#cta-wa", "#foot-wa"].forEach((s) => { const el = $(s); if (el) el.href = waGeneral; });
+  ["#wa-float", "#mb-wa", "#cta-wa", "#foot-wa"].forEach((s) => { const el = $(s); if (el) el.href = waGeneral; });
   $("#foot-wa").textContent = "WhatsApp " + A.CFG.WA_DISPLAY;
   $("#btn-produksi").href = A.waLink("Halo Admin AreumiVerse, saya ingin konsultasi PRODUKSI PAKAIAN dengan brand sendiri.\n\nJenis produk: \nPerkiraan jumlah: \nTarget selesai: ");
 
@@ -20,6 +20,17 @@
     $("#daftar").scrollIntoView();
     setTimeout(() => $("#r-nama").focus({ preventScroll: true }), 500);
   });
+
+  /* ---------- Bar aksi HP: sembunyikan saat form daftar / FAQ / footer terlihat ---------- */
+  const mbar = $(".mobile-bar");
+  if (mbar && "IntersectionObserver" in window) {
+    const seen = new Set();
+    const mo = new IntersectionObserver((es) => {
+      es.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+      mbar.classList.toggle("hide", seen.size > 0);
+    });
+    [".hero", "#daftar", "#faq", ".cta-final", ".footer"].forEach((s) => { const el = $(s); if (el) mo.observe(el); });
+  }
 
   /* ---------- Navbar ---------- */
   const nav = $("#nav"), menu = $("#mobile-menu"), tgl = $("#nav-toggle");

@@ -26,7 +26,10 @@
         estimasi_proses: "Kirim H+1", rating: 4.8, status: "Terverifikasi" },
       { id: "SUP-05", nama: "Mitra Konveksi & Sablon", kategori: "Produksi Pakaian", lokasi: "Bandung & Bogor",
         spesialisasi: "Produksi brand sendiri: sablon DTF/plastisol, bordir, label, hangtag & packaging", min_order: "24 pcs per desain",
-        estimasi_proses: "14–21 hari kerja", rating: 4.9, status: "Terverifikasi" }
+        estimasi_proses: "14–21 hari kerja", rating: 4.9, status: "Terverifikasi" },
+      { id: "SUP-06", nama: "Mitra Dress & Fashion Wanita", kategori: "Dress Wanita", lokasi: "Jakarta (Tanah Abang)",
+        spesialisasi: "Dress, gamis & atasan wanita: smock, floral, wrap, tiered dress", min_order: "1 pcs / paket random 2 pcs",
+        estimasi_proses: "Kirim H+1–2", rating: 4.7, status: "Terverifikasi" }
     ],
 
     products: [
@@ -68,6 +71,18 @@
         harga_modal: 42000, harga_jual_saran: 69000, stok: 60, min_order: 1,
         deskripsi: "Kaos hitam dengan sablon French Fries, label leher & hangtag AREUMI.",
         foto: { "Hitam": P + "areumi-french-fries-hitam.jpg" } },
+      { sku: "AR-LT01", nama: "AREUMI Logo Tee Short Sleeve", kategori: "Kaos Polos & Motif", brand: "AREUMI", supplier_id: "SUP-AR",
+        bahan: "Cotton combed 24s, sablon logo", ukuran: "S, M, L, XL, XXL", warna: "White, Black",
+        harga_modal: 39000, harga_jual_saran: 65000, stok: 300, min_order: 1,
+        deskripsi: "Kaos lengan pendek basic dengan logo AREUMI kecil di dada. Unisex, lengkap dengan label leher & hangtag AREUMI 아름.",
+        foto: { "White": P + "areumi-logo-tee-white.jpg", "Black": P + "areumi-logo-tee-black.jpg" },
+        galeri: [P + "galeri-areumi-logo-tee-1.jpg", P + "galeri-areumi-logo-tee-2.jpg", P + "galeri-areumi-logo-tee-3.jpg"] },
+      { sku: "AR-CT01", nama: "AREUMI Crop Tee — ME!, French Fries, Daisy", kategori: "Kaos Polos & Motif", brand: "AREUMI", supplier_id: "SUP-AR",
+        bahan: "Cotton combed 24s, sablon DTF", ukuran: "All size (fit to L)", warna: "Pink, Hitam, Magenta",
+        harga_modal: 45000, harga_jual_saran: 75000, stok: 150, min_order: 1,
+        deskripsi: "Crop tee boxy dengan 3 pilihan motif: ME! (pink), French Fries (hitam), Daisy (magenta). Cocok dipadukan dengan celana jeans high waist.",
+        foto: { "Pink": P + "areumi-crop-me-pink.jpg", "Hitam": P + "areumi-crop-fries-black.jpg", "Magenta": P + "areumi-crop-daisy-magenta.jpg" },
+        galeri: [P + "galeri-areumi-crop-tee.jpg"] },
       { sku: "KP-PL01", nama: "Kaos Polos Cotton Combed 30s — 15 Warna", kategori: "Kaos Polos & Motif", tipe: "tee", brand: "AREUMI", supplier_id: "SUP-01",
         bahan: "Cotton combed 30s (150 gsm)", ukuran: "S, M, L, XL, XXL",
         warna: "Ungu, Abu Tua, Merah, Hitam, Biru Benhur, Khaki, Sage, Navy, Pink, Biru Muda, Bata, Coklat, Cream, Putih, Lilac",
@@ -103,7 +118,7 @@
         gambar_url: P + "kaos-anak-random-1.jpg" },
 
       /* ---------- Dress Wanita ---------- */
-      { sku: "DR-RD01", nama: "Dress Wanita Random", kategori: "Dress Wanita", supplier_id: "SUP-01",
+      { sku: "DR-RD01", nama: "Dress Wanita Random", kategori: "Dress Wanita", supplier_id: "SUP-06",
         bahan: "Crinkle, rayon, katun (campur)", ukuran: "All size (fit to XL)", warna: "Random",
         harga_modal: 45000, harga_jual_saran: 79000, stok: 200, min_order: 2,
         deskripsi: "Dress wanita model random: smock, floral button, wrap dress, tiered dress. Minimal 2 pcs.",

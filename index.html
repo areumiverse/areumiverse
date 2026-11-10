@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="has-mobile-bar">
 
   <!-- ================= NAV ================= -->
   <header class="nav" id="nav">
@@ -54,7 +54,7 @@
     <section class="hero">
       <div class="hero-bg"><img src="banner.png" alt="Model mengenakan kaos lengan panjang AreumiVerse" width="1536" height="1024" fetchpriority="high"></div>
       <div class="container hero-content">
-        <h1>Jualan pakaian.<br><em>Tanpa</em> stok.</h1>
+        <h1><span>Jualan pakaian.</span><span><em>Tanpa</em> stok.</span></h1>
         <p class="lead">Kaos muslimah AREUMI, kaos polos &amp; motif, baju anak, dress, sampai produksi brand sendiri — dari supplier konveksi terverifikasi, dikirim atas nama toko Anda.</p>
         <form class="hero-form" id="hero-form">
           <input type="tel" id="hero-wa" inputmode="tel" placeholder="Masukkan nomor WhatsApp" aria-label="Nomor WhatsApp" autocomplete="tel">
@@ -335,6 +335,7 @@
     </div>
   </footer>
 
+  <div class="mobile-bar"><a class="btn btn-primary" href="#daftar">Daftar gratis</a><a class="btn btn-wa" id="mb-wa" href="#" target="_blank" rel="noopener" aria-label="Chat admin via WhatsApp"><svg><use href="#i-wa"/></svg>Chat</a></div>
   <a class="wa-float" id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Chat admin via WhatsApp"><svg><use href="#i-wa"/></svg></a>
 
   <script src="js/icons.js"></script>
