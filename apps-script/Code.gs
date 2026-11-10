@@ -40,6 +40,7 @@ function doPost(e) {
 }
 
 function handle_(p) {
+  try { ensureSetup_(); } catch (err) { return out_({ ok: false, error: "Setup database gagal: " + err.message }); }
   const routes = {
     ping: () => ({ pong: true, time: new Date() }),
     products: () => listProducts_(p.token),
@@ -240,7 +241,18 @@ function createOrder_(p) {
   });
 }
 
-/* ======================= SETUP (jalankan sekali) ======================= */
+/* ======================= SETUP (otomatis) ======================= */
+// Dipanggil di setiap request: membuat sheet + data contoh bila belum ada.
+function ensureSetup_() {
+  const props = PropertiesService.getScriptProperties();
+  if (props.getProperty("SETUP_VERSION") === "1") return;
+  const ss = ss_();
+  const missing = Object.keys(SCHEMA).some(n => !ss.getSheetByName(n));
+  if (missing) withLock_(() => setup());
+  props.setProperty("SETUP_VERSION", "1");
+}
+
+// Bisa juga dijalankan manual dari editor Apps Script.
 function setup() {
   const ss = ss_();
   Object.keys(SCHEMA).forEach(name => {
