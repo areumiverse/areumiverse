@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="demo-banner"></div>
   <div class="auth">
     <aside class="auth-side">
       <a class="logo" href="index.html"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em>Verse</em></span></a>
@@ -53,7 +52,6 @@
   <script>
   (function () {
     const A = window.Areumi;
-    if (A.DEMO) document.getElementById("demo-banner").innerHTML = '<div class="demo-banner">Mode demo: daftar dulu lewat halaman utama, akun tersimpan di browser ini saja.</div>';
     if (A.session.get()) { location.replace("dashboard.html"); return; }
     const forgot = document.getElementById("forgot");
     forgot.href = A.waLink("Halo Admin AreumiVerse, saya lupa password akun dropshipper saya. Nomor WA terdaftar: ");
