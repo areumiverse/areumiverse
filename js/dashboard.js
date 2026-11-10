@@ -9,7 +9,6 @@
   const token = sess.token;
   let me = sess.user || {}, products = [], orders = [];
 
-  if (A.DEMO) $("#demo-banner").innerHTML = '<div class="demo-banner">Mode demo: data hanya tersimpan di browser ini. Hubungkan spreadsheet lewat js/config.js.</div>';
   $("#side-wa").href = A.waLink("Halo Admin AreumiVerse, saya dropshipper dengan ID " + (me.id || "-") + ".");
 
   /* ---------- Navigasi view ---------- */

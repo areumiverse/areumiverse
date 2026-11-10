@@ -4,7 +4,6 @@
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 
-  if (A.DEMO) $("#demo-banner").innerHTML = '<div class="demo-banner">Mode demo — spreadsheet belum terhubung. Isi <code>API_URL</code> di js/config.js (lihat SETUP.md).</div>';
   $("#year").textContent = new Date().getFullYear();
 
   /* ---------- Link WhatsApp ---------- */
