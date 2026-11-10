@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — AreumiVerse Dropshipper</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#1c1917">
+  <link rel="icon" type="image/png" href="images/logos/logo-f7d5ec1c1c543b1e946a635bb25ed19e.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="demo-banner"></div>
+  <div class="dash">
+    <aside class="side" id="side">
+      <a class="logo" href="index.html"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em style="color:var(--rose)">Verse</em></span></a>
+      <button class="side-link active" data-view="ringkasan"><svg><use href="#i-home"/></svg>Ringkasan</button>
+      <button class="side-link" data-view="katalog"><svg><use href="#i-grid"/></svg>Katalog &amp; Harga Modal</button>
+      <button class="side-link" data-view="order"><svg><use href="#i-cart"/></svg>Buat Pesanan</button>
+      <button class="side-link" data-view="pesanan"><svg><use href="#i-list"/></svg>Riwayat Pesanan</button>
+      <button class="side-link" data-view="supplier"><svg><use href="#i-users"/></svg>Supplier</button>
+      <button class="side-link" data-view="profil"><svg><use href="#i-user"/></svg>Profil Toko</button>
+      <div class="side-foot">
+        <div class="side-user"><div class="avatar" id="u-avatar">A</div><div><strong id="u-name">—</strong><span id="u-id">—</span></div></div>
+        <a class="side-link" id="side-wa" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Hubungi Admin</a>
+        <button class="side-link" id="logout"><svg><use href="#i-logout"/></svg>Keluar</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div style="display:flex;gap:12px;align-items:center">
+          <button class="icon-btn menu-btn" id="menu-btn" aria-label="Buka menu"><svg><use href="#i-menu"/></svg></button>
+          <div><h1 id="view-title">Ringkasan</h1><p id="greet">Memuat…</p></div>
+        </div>
+        <button class="btn btn-primary btn-sm" data-goto="order"><svg><use href="#i-cart"/></svg>Pesanan Baru</button>
+      </div>
+
+      <div id="verify-slot"></div>
+
+      <!-- RINGKASAN -->
+      <section class="view active" id="v-ringkasan">
+        <div class="stats">
+          <div class="stat"><div class="lbl">Total pesanan</div><div class="val" id="s-orders">0</div><div class="sub">Semua waktu</div></div>
+          <div class="stat"><div class="lbl">Pcs terjual</div><div class="val" id="s-pcs">0</div><div class="sub">Semua waktu</div></div>
+          <div class="stat"><div class="lbl">Omzet</div><div class="val" id="s-omzet">Rp0</div><div class="sub">Harga jual × qty</div></div>
+          <div class="stat"><div class="lbl">Estimasi profit</div><div class="val" id="s-profit" style="color:var(--ok)">Rp0</div><div class="sub">Omzet − modal</div></div>
+        </div>
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-head"><h2>Profit 6 bulan terakhir</h2><span class="badge" id="s-month">—</span></div>
+            <div class="bars" id="bars" role="img" aria-label="Grafik profit per bulan"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>Langkah berikutnya</h2></div>
+            <ul class="tip-list">
+              <li><b>1</b><span>Pilih produk di <a href="#" data-goto="katalog" style="color:var(--brand);font-weight:700">Katalog</a>, salin caption, dan posting di kanal jualan Anda.</span></li>
+              <li><b>2</b><span>Saat ada pembeli, isi <a href="#" data-goto="order" style="color:var(--brand);font-weight:700">Buat Pesanan</a> — data terkirim ke admin via WhatsApp.</span></li>
+              <li><b>3</b><span>Transfer modal + ongkir ke rekening yang diinfokan admin.</span></li>
+              <li><b>4</b><span>Pantau status &amp; nomor resi di Riwayat Pesanan.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Pesanan terbaru</h2><button class="btn btn-ghost btn-sm" data-goto="pesanan">Lihat semua</button></div>
+          <div class="table-wrap" id="recent-orders"></div>
+        </div>
+      </section>
+
+      <!-- KATALOG -->
+      <section class="view" id="v-katalog">
+        <div class="toolbar">
+          <div class="chips" id="d-chips"></div>
+          <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="d-q" placeholder="Cari produk…" aria-label="Cari produk"></label>
+        </div>
+        <div class="product-grid" id="d-products"></div>
+      </section>
+
+      <!-- BUAT PESANAN -->
+      <section class="view" id="v-order">
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-head"><h2>Detail pesanan</h2></div>
+            <form id="order-form" novalidate>
+              <div class="form-grid">
+                <div class="field full"><label for="o-sku">Produk <span class="req">*</span></label><select id="o-sku" name="sku" required></select></div>
+                <div class="field"><label for="o-warna">Warna <span class="req">*</span></label><select id="o-warna" name="warna" required></select></div>
+                <div class="field"><label for="o-ukuran">Ukuran <span class="req">*</span></label><select id="o-ukuran" name="ukuran" required></select></div>
+                <div class="field"><label for="o-qty">Jumlah (pcs) <span class="req">*</span></label><input id="o-qty" name="qty" type="number" min="1" value="1" required><span class="hint" id="o-moq"></span></div>
+                <div class="field"><label for="o-harga">Harga jual Anda / pcs</label><input id="o-harga" name="harga_jual" type="number" min="0" step="500"><span class="hint">Untuk menghitung profit Anda.</span></div>
+                <div class="field"><label for="o-penerima">Nama penerima <span class="req">*</span></label><input id="o-penerima" name="nama_penerima" required><span class="err">Wajib diisi.</span></div>
+                <div class="field"><label for="o-hp">No. HP penerima <span class="req">*</span></label><input id="o-hp" name="hp_penerima" type="tel" required><span class="err">Wajib diisi.</span></div>
+                <div class="field full"><label for="o-alamat">Alamat lengkap <span class="req">*</span></label><textarea id="o-alamat" name="alamat" placeholder="Jalan, RT/RW, kelurahan, kecamatan, kota, kode pos" required></textarea><span class="err">Wajib diisi.</span></div>
+                <div class="field"><label for="o-ekspedisi">Ekspedisi</label><select id="o-ekspedisi" name="ekspedisi"><option>JNE REG</option><option>J&amp;T Express</option><option>SiCepat REG</option><option>AnterAja</option><option>Resi marketplace (kirim via WA)</option></select></div>
+                <div class="field"><label for="o-catatan">Catatan</label><input id="o-catatan" name="catatan" placeholder="Opsional"></div>
+              </div>
+              <div class="form-foot">
+                <div class="alert" id="order-alert" role="status"></div>
+                <button class="btn btn-primary btn-block" id="order-btn" type="submit"><svg><use href="#i-wa"/></svg>Simpan &amp; Kirim ke Admin</button>
+              </div>
+            </form>
+          </div>
+          <div>
+            <div class="panel" style="position:sticky;top:20px">
+              <div class="panel-head"><h2>Ringkasan biaya</h2></div>
+              <div class="product-media" id="o-visual" style="border-radius:14px;max-width:220px;margin:0 auto"></div>
+              <div class="calc" id="o-calc"></div>
+              <p class="small muted" style="margin-top:12px">Ongkir dihitung admin sesuai alamat &amp; ekspedisi, lalu diinfokan via WhatsApp.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIWAYAT -->
+      <section class="view" id="v-pesanan">
+        <div class="panel">
+          <div class="panel-head"><h2>Riwayat pesanan</h2><button class="btn btn-ghost btn-sm" id="refresh-orders">Muat ulang</button></div>
+          <div class="table-wrap" id="all-orders"></div>
+        </div>
+      </section>
+
+      <!-- SUPPLIER -->
+      <section class="view" id="v-supplier">
+        <p class="muted" style="margin-bottom:20px">Daftar mitra produksi yang memasok katalog. Pemesanan tetap melalui admin AreumiVerse.</p>
+        <div class="sup-grid" id="d-suppliers"></div>
+      </section>
+
+      <!-- PROFIL -->
+      <section class="view" id="v-profil">
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-head"><h2>Profil toko</h2></div>
+            <form id="profile-form">
+              <div class="form-grid">
+                <div class="field"><label for="p-nama">Nama lengkap</label><input id="p-nama" name="nama"></div>
+                <div class="field"><label for="p-toko">Nama toko (pengirim)</label><input id="p-toko" name="nama_toko"></div>
+                <div class="field"><label for="p-email">Email</label><input id="p-email" name="email" type="email"></div>
+                <div class="field"><label for="p-kota">Kota</label><input id="p-kota" name="kota"></div>
+                <div class="field full"><label for="p-platform">Kanal jualan</label><input id="p-platform" name="platform"></div>
+              </div>
+              <div class="form-foot"><button class="btn btn-dark" type="submit" id="profile-btn">Simpan Perubahan</button></div>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>Info akun</h2></div>
+            <div class="sup" style="border:0;padding:0" id="acc-info"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal caption -->
+  <div class="modal" id="cap-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="cap-title">
+      <div class="modal-head"><h3 id="cap-title">Caption siap posting</h3><button class="icon-btn" data-close aria-label="Tutup"><svg><use href="#i-close"/></svg></button></div>
+      <div class="modal-body">
+        <div class="field"><textarea id="cap-text" style="min-height:260px" aria-label="Caption"></textarea></div>
+        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="cap-copy"><svg><use href="#i-copy"/></svg>Salin Caption</button>
+          <button class="btn btn-ghost" id="cap-order">Buat Pesanan Produk Ini</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

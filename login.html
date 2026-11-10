@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Masuk — AreumiVerse Dropshipper</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#c4231f">
+  <link rel="icon" type="image/png" href="images/logos/logo-f7d5ec1c1c543b1e946a635bb25ed19e.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="demo-banner"></div>
+  <div class="auth">
+    <aside class="auth-side">
+      <a class="logo" href="index.html"><span class="logo-mark"><svg><use href="#i-logo"/></svg></span><span>Areumi<em style="color:var(--rose)">Verse</em></span></a>
+      <div>
+        <h2>Kelola pesanan dropship Anda dari satu tempat.</h2>
+        <p>Harga modal, stok, caption siap posting, input pesanan, dan laporan profit — semuanya di dashboard.</p>
+      </div>
+    </aside>
+
+    <main class="auth-main">
+      <div class="auth-box">
+        <a class="back" href="index.html"><svg><use href="#i-arrowL"/></svg>Kembali ke beranda</a>
+        <h1>Masuk</h1>
+        <p class="muted" style="margin-bottom:28px">Gunakan nomor WhatsApp atau email yang Anda daftarkan.</p>
+        <form id="login-form" novalidate>
+          <div class="form-grid">
+            <div class="field"><label for="l-id">WhatsApp atau email</label><input id="l-id" name="identifier" autocomplete="username" placeholder="08xxxxxxxxxx" required><span class="err">Wajib diisi.</span></div>
+            <div class="field"><label for="l-pw">Password</label><div class="pw-wrap"><input id="l-pw" name="password" type="password" autocomplete="current-password" required><button type="button" class="pw-toggle" id="pw-toggle">Lihat</button></div><span class="err">Wajib diisi.</span></div>
+          </div>
+          <div class="form-foot">
+            <div class="alert" id="login-alert" role="status"></div>
+            <button class="btn btn-primary btn-block" id="login-btn" type="submit">Masuk ke Dashboard</button>
+            <a class="small muted" id="forgot" href="#" target="_blank" rel="noopener" style="text-align:center">Lupa password? Hubungi admin via WhatsApp</a>
+            <div class="divider">— belum punya akun? —</div>
+            <a class="btn btn-ghost btn-block" href="index.html#daftar">Daftar Dropshipper Gratis</a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script>
+  (function () {
+    const A = window.Areumi;
+    if (A.DEMO) document.getElementById("demo-banner").innerHTML = '<div class="demo-banner">Mode demo: daftar dulu lewat halaman utama, akun tersimpan di browser ini saja.</div>';
+    if (A.session.get()) { location.replace("dashboard.html"); return; }
+    document.getElementById("forgot").href = A.waLink("Halo Admin AreumiVerse, saya lupa password akun dropshipper saya. Nomor WA terdaftar: ");
+    const pw = document.getElementById("l-pw");
+    document.getElementById("pw-toggle").addEventListener("click", (e) => { const s = pw.type === "password"; pw.type = s ? "text" : "password"; e.target.textContent = s ? "Sembunyi" : "Lihat"; });
+
+    const form = document.getElementById("login-form"), box = document.getElementById("login-alert"), btn = document.getElementById("login-btn");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = form.identifier.value.trim(), p = form.password.value;
+      form.identifier.closest(".field").classList.toggle("invalid", !id);
+      pw.closest(".field").classList.toggle("invalid", !p);
+      if (!id || !p) return;
+      btn.disabled = true; btn.textContent = "Memeriksa…"; box.className = "alert";
+      try {
+        const res = await A.api.login({ identifier: id, password: p });
+        A.session.set(res);
+        location.replace("dashboard.html");
+      } catch (err) {
+        box.className = "alert show error"; box.textContent = err.message;
+        btn.disabled = false; btn.textContent = "Masuk ke Dashboard";
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
