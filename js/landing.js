@@ -12,6 +12,27 @@
   $("#foot-wa").textContent = "WhatsApp " + A.CFG.WA_DISPLAY;
   $("#btn-produksi").href = A.waLink("Halo Admin AreumiVerse, saya ingin konsultasi PRODUKSI PAKAIAN dengan brand sendiri.\n\nJenis produk: \nPerkiraan jumlah: \nTarget selesai: ");
 
+  $("#btn-sablon").href = A.waLink("Halo Admin AreumiVerse, saya ingin pesan JASA SABLON MANUAL.\n\nJenis kaos/bahan: \nBahan dari: (AreumiVerse / bawa sendiri)\nUkuran sablon: (logo dada / A4 / A3)\nJumlah warna: \nJumlah pcs: \nTarget selesai: ");
+
+  /* ---------- Popup info layanan (tampil setiap halaman dibuka) ---------- */
+  const promo = $("#promo");
+  if (promo) {
+    $("#promo-wa").href = A.waLink("Halo Admin AreumiVerse, saya ingin tanya harga:\n\n( ) Sablon manual\n( ) Sablon DTF\n( ) Baju custom (kaos/kemeja/seragam/hoodie)\n\nJumlah pcs: \nDesain: (sudah ada / perlu dibantu)");
+    const closePromo = () => {
+      promo.classList.remove("open"); promo.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+    $$("[data-promo-close]", promo).forEach((el) => el.addEventListener("click", closePromo));
+    $("#promo-wa").addEventListener("click", closePromo);
+    addEventListener("keydown", (e) => { if (e.key === "Escape" && promo.classList.contains("open")) closePromo(); });
+    // Selalu tampil setiap kali index dibuka / di-refresh
+    setTimeout(() => {
+      promo.classList.add("open"); promo.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      $(".promo-x", promo).focus({ preventScroll: true });
+    }, 900);
+  }
+
   /* ---------- Hero: isi nomor WA lalu lanjut ke form daftar ---------- */
   $("#hero-form").addEventListener("submit", (e) => {
     e.preventDefault();
