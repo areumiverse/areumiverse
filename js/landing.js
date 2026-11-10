@@ -36,10 +36,14 @@
   observe(document);
 
   /* ---------- Katalog ---------- */
-  const CATS = ["Semua", "Kaos Polos", "Baju Anak", "Kemeja Kantor", "Produksi Pakaian"];
   let products = [], activeCat = "Semua", q = "";
   const chips = $("#cat-chips");
-  chips.innerHTML = CATS.map((c) => `<button class="chip${c === activeCat ? " active" : ""}" role="tab" data-c="${c}">${c}</button>`).join("");
+  function renderChips() {
+    const base = (window.AREUMI_DEMO && window.AREUMI_DEMO.categories) || [];
+    const cats = ["Semua"].concat(base.filter((c) => products.some((p) => p.kategori === c)),
+      [...new Set(products.map((p) => p.kategori))].filter((c) => c && !base.includes(c)));
+    chips.innerHTML = cats.map((c) => `<button class="chip${c === activeCat ? " active" : ""}" role="tab" aria-selected="${c === activeCat}" data-c="${A.esc(c)}">${A.esc(c)}</button>`).join("");
+  }
   chips.addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (b) setCat(b.dataset.c, false); });
   function setCat(c, scroll) {
     activeCat = c;
@@ -54,12 +58,12 @@
   function productCard(p) {
     const moq = Number(p.min_order) > 1 ? `<span class="badge dark">Min. ${p.min_order} pcs</span>` : `<span class="badge ok">Ready stock</span>`;
     return `<article class="product reveal">
-      <div class="product-media">${A.productVisual(p)}<span class="badge-wrap" style="position:absolute;left:12px;top:12px">${moq}</span></div>
+      <div class="product-media" role="button" tabindex="0" data-sku="${A.esc(p.sku)}" aria-label="Lihat detail ${A.esc(p.nama)}">${A.productVisual(p)}<span class="badge-wrap" style="position:absolute;left:12px;top:12px">${moq}</span></div>
       <div class="product-body">
         <span class="sku">${A.esc(p.sku)} · ${A.esc(p.kategori)}</span>
-        <h3>${A.esc(p.nama)}</h3>
+        <h3><a href="#" data-sku="${A.esc(p.sku)}" class="pd-link">${A.esc(p.nama)}</a></h3>
         <span class="meta">${A.esc(p.bahan)}</span>
-        <div class="swatches">${A.swatches(p, 5)}</div>
+        <div class="swatches">${A.swatches(p, 6)}</div>
         <div class="price-row">
           <div><div class="lbl">Harga jual</div><div class="val">${A.rupiah(p.harga_jual_saran)}</div></div>
           <a class="locked" href="#daftar"><svg><use href="#i-lock"/></svg>Harga modal</a>
@@ -75,10 +79,9 @@
 
   /* ---------- Supplier ---------- */
   function supCard(s) {
-    const initials = String(s.nama).replace(/^Mitra\s+/i, "").split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
     return `<article class="sup reveal">
       <div class="sup-head">
-        <div style="display:flex;gap:12px"><div class="sup-avatar">${A.esc(initials)}</div>
+        <div style="display:flex;gap:12px"><div class="sup-logo">${A.supplierLogo(s)}</div>
           <div><h3>${A.esc(s.nama)}</h3><div class="loc"><svg><use href="#i-pin"/></svg>${A.esc(s.lokasi)}</div></div></div>
       </div>
       <span class="badge brand" style="align-self:start">${A.esc(s.kategori)}</span>
@@ -91,7 +94,16 @@
     </article>`;
   }
 
-  A.api.products().then((d) => { products = d || []; renderProducts(); }).catch(() => { $("#product-grid").innerHTML = '<div class="empty">Katalog gagal dimuat.</div>'; });
+  const grid = $("#product-grid");
+  function showDetail(sku) {
+    const p = products.find((x) => x.sku === sku); if (!p) return;
+    A.openProduct(p, { cta: `<a class="btn btn-primary" href="#daftar" data-pd-close>Daftar untuk lihat harga modal</a>
+      <a class="btn btn-ghost" target="_blank" rel="noopener" href="${A.waLink("Halo Admin AreumiVerse, saya tertarik dengan produk " + p.sku + " — " + p.nama + ".")}"><svg><use href="#i-wa"/></svg>Tanya admin</a>` });
+  }
+  grid.addEventListener("click", (e) => { const t = e.target.closest("[data-sku]"); if (t) { e.preventDefault(); showDetail(t.dataset.sku); } });
+  grid.addEventListener("keydown", (e) => { const t = e.target.closest(".product-media[data-sku]"); if (t && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); showDetail(t.dataset.sku); } });
+
+  A.api.products().then((d) => { products = (d || []).map((p) => { const c = Object.assign({}, p); delete c.harga_modal; return c; }); renderChips(); renderProducts(); }).catch(() => { $("#product-grid").innerHTML = '<div class="empty">Katalog gagal dimuat.</div>'; });
   A.api.suppliers().then((d) => { $("#sup-grid").innerHTML = (d || []).map(supCard).join(""); observe($("#sup-grid")); });
 
   /* ---------- Register ---------- */

@@ -62,9 +62,13 @@
   });
 
   /* ---------- Katalog ---------- */
-  const CATS = ["Semua", "Kaos Polos", "Baju Anak", "Kemeja Kantor", "Produksi Pakaian"];
+  function renderChips() {
+    const base = (window.AREUMI_DEMO && window.AREUMI_DEMO.categories) || [];
+    const cats = ["Semua"].concat(base.filter((c) => products.some((p) => p.kategori === c)),
+      [...new Set(products.map((p) => p.kategori))].filter((c) => c && !base.includes(c)));
+    $("#d-chips").innerHTML = cats.map((c) => `<button class="chip${c === cat ? " active" : ""}" data-c="${A.esc(c)}">${A.esc(c)}</button>`).join("");
+  }
   let cat = "Semua", q = "";
-  $("#d-chips").innerHTML = CATS.map((c) => `<button class="chip${c === cat ? " active" : ""}" data-c="${c}">${c}</button>`).join("");
   $("#d-chips").addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (!b) return; cat = b.dataset.c; $$("#d-chips .chip").forEach((x) => x.classList.toggle("active", x === b)); renderCatalog(); });
   $("#d-q").addEventListener("input", (e) => { q = e.target.value.trim().toLowerCase(); renderCatalog(); });
 
@@ -74,7 +78,7 @@
       const margin = Number(p.harga_jual_saran) - Number(p.harga_modal);
       const stokTxt = Number(p.stok) > 0 ? `<span class="badge ok">Stok ${p.stok}</span>` : `<span class="badge dark">By order · min ${p.min_order}</span>`;
       return `<article class="product">
-        <div class="product-media">${A.productVisual(p)}<span style="position:absolute;left:12px;top:12px">${stokTxt}</span></div>
+        <div class="product-media" role="button" tabindex="0" data-detail="${A.esc(p.sku)}" style="cursor:zoom-in">${A.productVisual(p)}<span style="position:absolute;left:12px;top:12px">${stokTxt}</span></div>
         <div class="product-body">
           <span class="sku">${A.esc(p.sku)} · ${A.esc(p.kategori)}</span>
           <h3>${A.esc(p.nama)}</h3>
@@ -93,6 +97,16 @@
     }).join("") : '<div class="empty">Tidak ada produk.</div>';
   }
   $("#d-products").addEventListener("click", (e) => {
+    const dt = e.target.closest("[data-detail]");
+    if (dt) {
+      const p = products.find((x) => x.sku === dt.dataset.detail);
+      if (p) A.openProduct(p, { showModal: true, cta: `<button class="btn btn-primary" data-pd-order>Pesan produk ini</button><button class="btn btn-ghost" data-pd-caption><svg><use href="#i-copy"/></svg>Caption</button>`,
+        onReady: (box) => {
+          box.querySelector("[data-pd-order]").addEventListener("click", () => { A.closeProduct(); selectProduct(p.sku); go("order"); });
+          box.querySelector("[data-pd-caption]").addEventListener("click", () => { A.closeProduct(); openCaption(p.sku); });
+        } });
+      return;
+    }
     const c = e.target.closest("[data-caption]"), o = e.target.closest("[data-order]");
     if (c) openCaption(c.dataset.caption);
     if (o) { selectProduct(o.dataset.order); go("order"); }
@@ -113,7 +127,7 @@
       `💰 Harga: ${A.rupiah(p.harga_jual_saran)}`,
       Number(p.min_order) > 1 ? `📦 Minimal order ${p.min_order} pcs` : "📦 Ready stock, bisa beli satuan", "",
       `Order sekarang via DM / WhatsApp ${me.nama_toko ? "*" + me.nama_toko + "*" : ""}`.trim(), "",
-      "#kaospolos #bajuanak #kemejakantor #fashionindonesia #" + String(p.kategori).replace(/\s+/g, "").toLowerCase()
+      "#areumi #kaosmuslimah #kaospolos #bajuanak #fashionindonesia #" + String(p.kategori).replace(/\s+/g, "").toLowerCase()
     ].join("\n");
     modal.classList.add("open"); modal.setAttribute("aria-hidden", "false");
     $("#cap-text").focus();
@@ -248,7 +262,7 @@
   /* ---------- Supplier ---------- */
   function renderSuppliers(list) {
     $("#d-suppliers").innerHTML = (list || []).map((s) => `<article class="sup">
-      <div class="sup-head"><div><h3>${A.esc(s.nama)}</h3><div class="loc"><svg><use href="#i-pin"/></svg>${A.esc(s.lokasi)}</div></div><span class="badge brand">${A.esc(s.id)}</span></div>
+      <div class="sup-head"><div style="display:flex;gap:14px"><div class="sup-logo">${A.supplierLogo(s)}</div><div><h3>${A.esc(s.nama)}</h3><div class="loc"><svg><use href="#i-pin"/></svg>${A.esc(s.lokasi)}</div></div></div><span class="badge brand">${A.esc(s.id)}</span></div>
       <span class="badge" style="align-self:start">${A.esc(s.kategori)}</span>
       <dl><dt>Spesialis</dt><dd>${A.esc(s.spesialisasi)}</dd><dt>Min. order</dt><dd>${A.esc(s.min_order)}</dd><dt>Proses</dt><dd>${A.esc(s.estimasi_proses)}</dd>
       <dt>Produk</dt><dd>${products.filter((p) => p.supplier_id === s.id).length} item di katalog</dd></dl>
@@ -264,7 +278,7 @@
       A.toast("Gagal terhubung ke server: " + err.message, "error");
     }
     products = (await A.api.products({ token })) || [];
-    renderCatalog(); fillProductSelect();
+    renderChips(); renderCatalog(); fillProductSelect();
     loadOrders();
     renderSuppliers(await A.api.suppliers());
     const start = location.hash.slice(1);

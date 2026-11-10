@@ -22,56 +22,103 @@
   /* ---------- Ilustrasi produk (SVG) ---------- */
   const COLORS = {
     hitam: "#232323", putih: "#f4f1ec", navy: "#25324d", merah: "#c4231f", maroon: "#6e1a24",
-    "abu misty": "#a7abb0", cream: "#ece0c8", "dusty pink": "#d79c94", sage: "#a3b39a",
-    kuning: "#f2c84b", "biru muda": "#9cc7e6", pink: "#f0a9bd", "hijau mint": "#a6dcc6", "bebas pilih": "#232323"
+    "abu misty": "#a7abb0", cream: "#efe7da", "dusty pink": "#d79c94", "dusty rose": "#cf8f8a", sage: "#8fa58a",
+    kuning: "#f2c84b", "biru muda": "#9cc7e6", pink: "#e9a3b4", "hijau mint": "#a6dcc6", "bebas pilih": "#232323",
+    "rose plum": "#b0798c", denim: "#5a7fb5", mono: "#3a3a3c", latte: "#b89a7e", "blue terracotta": "#6b86c4",
+    mocha: "#7a5a45", brown: "#a8693a", white: "#f7f7f7", blue: "#4f7fb8", magenta: "#8e1f5c",
+    ungu: "#6b3fa0", "abu tua": "#4a4a4a", "biru benhur": "#1e4fc0", khaki: "#b8a272", bata: "#b5503c",
+    coklat: "#7a4a2e", lilac: "#b9a6d9"
   };
   const colorHex = (name) => COLORS[String(name || "").trim().toLowerCase()] || "#232323";
-  const shade = (hex, amt) => {
-    const n = parseInt(hex.slice(1), 16);
-    const c = (v) => Math.max(0, Math.min(255, v + amt));
-    return "#" + [c(n >> 16), c((n >> 8) & 255), c(n & 255)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  const colorList = (p) => String(p.warna || "").split(",").map((s) => s.trim()).filter(Boolean);
+  const CAT_ART = {
+    "kaos polos": ["tee", "AREUMI"], "baju anak": ["kids", "AREUMI"], "kemeja kantor": ["shirt", "RAYNOZ"], "produksi pakaian": ["print", "RAYNOZ"]
   };
-  const contrast = (hex) => { const n = parseInt(hex.slice(1), 16); const l = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)); return l > 160 ? "#111" : "#fff"; };
+  // ilustrasi mockup untuk kartu kategori
   function garmentSVG(kategori, warna) {
-    const fill = colorHex(warna);
-    const line = shade(fill, -38);
-    const k = String(kategori || "").toLowerCase();
-    let body;
-    if (k.includes("kemeja")) {
-      body = `<path d="M60 40 L88 30 Q100 40 112 30 L140 40 L172 72 L154 92 L140 80 L140 170 L60 170 L60 80 L46 92 L28 72 Z" fill="${fill}" stroke="${line}" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M88 30 L100 52 L112 30 L106 26 L100 36 L94 26 Z" fill="${shade(fill, 18)}" stroke="${line}" stroke-width="2"/>
-        <line x1="100" y1="52" x2="100" y2="170" stroke="${line}" stroke-width="2"/>
-        ${[70, 92, 114, 136, 158].map((y) => `<circle cx="104" cy="${y}" r="2.6" fill="${line}"/>`).join("")}
-        <rect x="114" y="74" width="16" height="14" rx="2" fill="none" stroke="${line}" stroke-width="2"/>`;
-    } else if (k.includes("anak")) {
-      body = `<path d="M70 52 L88 44 Q100 56 112 44 L130 52 L156 74 L142 90 L130 82 L130 150 L70 150 L70 82 L58 90 L44 74 Z" fill="${fill}" stroke="${line}" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M88 44 Q100 56 112 44" fill="none" stroke="${line}" stroke-width="3"/>
-        <circle cx="100" cy="104" r="12" fill="${shade(fill, 30)}" stroke="${line}" stroke-width="2"/>
-        <path d="M95 102 h0.01 M105 102 h0.01" stroke="${line}" stroke-width="3.5" stroke-linecap="round"/>
-        <path d="M95 108 Q100 112 105 108" fill="none" stroke="${line}" stroke-width="2" stroke-linecap="round"/>`;
-    } else if (k.includes("produksi")) {
-      body = `<path d="M58 40 L84 30 Q100 46 116 30 L142 40 L174 74 L154 94 L140 82 L140 170 L60 170 L60 82 L46 94 L26 74 Z" fill="${fill}" stroke="${line}" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M84 30 Q100 46 116 30" fill="none" stroke="${line}" stroke-width="3"/>
-        <rect x="76" y="82" width="48" height="44" rx="4" fill="none" stroke="${contrast(fill)}" stroke-width="2.5" stroke-dasharray="6 5"/>
-        <text x="100" y="109" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="13" fill="${contrast(fill)}">LOGO</text>`;
-    } else {
-      body = `<path d="M58 40 L84 30 Q100 46 116 30 L142 40 L174 74 L154 94 L140 82 L140 170 L60 170 L60 82 L46 94 L26 74 Z" fill="${fill}" stroke="${line}" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M84 30 Q100 46 116 30" fill="none" stroke="${line}" stroke-width="3"/>
-        <path d="M60 82 L60 60 M140 82 L140 60" stroke="${line}" stroke-width="1.5" opacity=".45"/>`;
-    }
-    return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi ${esc(kategori)}">${body}</svg>`;
+    const k = CAT_ART[String(kategori || "").toLowerCase()] || ["tee", "AREUMI"];
+    return window.AreumiMockup.mockup(k[0], colorHex(warna), { brand: k[1] });
+  }
+  /* Gambar produk. Urutan: foto per warna -> mockup per warna (bila produk punya tipe)
+     -> gambar_url -> foto pertama -> mockup tebakan. */
+  function productSrc(p, warna) {
+    const w = warna || colorList(p)[0];
+    if (p.foto && p.foto[w]) return p.foto[w];
+    if (warna && p.tipe) return null;
+    if (p.gambar_url) return p.gambar_url;
+    if (p.foto) return Object.values(p.foto)[0];
+    return null;
   }
   function productVisual(p, warna) {
-    if (p.gambar_url) return `<img src="${esc(p.gambar_url)}" alt="${esc(p.nama)}" loading="lazy">`;
-    const first = warna || String(p.warna || "").split(",")[0];
-    return garmentSVG(p.kategori, first);
+    const w = warna || colorList(p)[0];
+    const src = productSrc(p, warna);
+    if (src) return `<img src="${esc(src)}" alt="${esc(p.nama)} warna ${esc(w)}" loading="lazy">`;
+    const M = window.AreumiMockup;
+    return M.mockup(p.tipe || M.guessType(p), colorHex(w), { brand: p.brand || "AREUMI", print: p.print });
   }
+  const supplierLogo = (s) => window.AreumiMockup.supplierLogo(s);
+  const swatchBg = (w) => /^(random|bebas pilih)$/i.test(w)
+    ? "conic-gradient(#c4231f, #f2c84b, #8fa58a, #4f7fb8, #b9a6d9, #c4231f)" : colorHex(w);
   function swatches(p, max) {
-    const list = String(p.warna || "").split(",").map((s) => s.trim()).filter(Boolean);
+    const list = colorList(p);
     const shown = list.slice(0, max || 6);
-    return shown.map((w) => `<span class="swatch" title="${esc(w)}" style="background:${colorHex(w)}"></span>`).join("") +
+    return shown.map((w) => `<span class="swatch" title="${esc(w)}" style="background:${swatchBg(w)}"></span>`).join("") +
       (list.length > shown.length ? `<span class="swatch-more">+${list.length - shown.length}</span>` : "");
   }
+
+  /* ---------- Detail produk + galeri foto ---------- */
+  function openProduct(p, opts) {
+    opts = opts || {};
+    let box = document.getElementById("pd-modal");
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "pd-modal"; box.className = "modal"; box.setAttribute("aria-hidden", "true");
+      document.body.appendChild(box);
+      box.addEventListener("click", (e) => { if (e.target.closest("[data-pd-close]")) closeProduct(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeProduct(); });
+    }
+    const colors = colorList(p);
+    const shots = [];
+    colors.forEach((w) => { const s = p.foto && p.foto[w]; if (s && !shots.some((x) => x.src === s)) shots.push({ src: s, label: w }); });
+    if (p.gambar_url && !shots.some((x) => x.src === p.gambar_url)) shots.push({ src: p.gambar_url, label: "Foto produk" });
+    (p.galeri || []).forEach((g) => { if (!shots.some((x) => x.src === g)) shots.push({ src: g, label: "Galeri" }); });
+    const main = shots.length ? `<img id="pd-main" src="${esc(shots[0].src)}" alt="${esc(p.nama)}">` : productVisual(p);
+    const margin = opts.showModal && p.harga_modal ? `<div><div class="lbl">Harga modal</div><div class="val">${rupiah(p.harga_modal)}</div></div>` : "";
+    box.innerHTML = `<div class="modal-backdrop" data-pd-close></div>
+      <div class="modal-card pd-card" role="dialog" aria-modal="true" aria-label="${esc(p.nama)}">
+        <button class="icon-btn pd-x" data-pd-close aria-label="Tutup"><svg><use href="#i-close"/></svg></button>
+        <div class="pd-grid">
+          <div class="pd-media"><div class="pd-main">${main}</div>
+            ${shots.length > 1 ? `<div class="pd-thumbs">${shots.map((s, i) => `<button class="pd-thumb${i ? "" : " active"}" data-src="${esc(s.src)}" title="${esc(s.label)}"><img src="${esc(s.src)}" alt="${esc(s.label)}" loading="lazy"></button>`).join("")}</div>` : ""}
+          </div>
+          <div class="pd-info">
+            <span class="sku">${esc(p.sku)} · ${esc(p.kategori)}</span>
+            <h3>${esc(p.nama)}</h3>
+            <p class="muted">${esc(p.deskripsi || "")}</p>
+            <dl class="pd-spec"><dt>Bahan</dt><dd>${esc(p.bahan)}</dd><dt>Ukuran</dt><dd>${esc(p.ukuran)}</dd>
+              <dt>Warna</dt><dd>${colors.map((w) => `<button class="pd-color" data-w="${esc(w)}"><span class="swatch" style="background:${swatchBg(w)}"></span>${esc(w)}</button>`).join("")}</dd>
+              <dt>Min. order</dt><dd>${esc(p.min_order || 1)} pcs</dd></dl>
+            <div class="price-row" style="border:0;padding-top:4px">
+              <div><div class="lbl">Harga jual saran</div><div class="val">${rupiah(p.harga_jual_saran)}</div></div>${margin}
+            </div>
+            <div class="pd-cta">${opts.cta || ""}</div>
+          </div>
+        </div>
+      </div>`;
+    const setMain = (src) => {
+      const m = box.querySelector(".pd-main");
+      m.innerHTML = `<img id="pd-main" src="${esc(src)}" alt="${esc(p.nama)}">`;
+      box.querySelectorAll(".pd-thumb").forEach((t) => t.classList.toggle("active", t.dataset.src === src));
+    };
+    box.querySelectorAll(".pd-thumb").forEach((t) => t.addEventListener("click", () => setMain(t.dataset.src)));
+    box.querySelectorAll(".pd-color").forEach((b) => b.addEventListener("click", () => {
+      const src = productSrc(p, b.dataset.w);
+      if (src) setMain(src); else box.querySelector(".pd-main").innerHTML = productVisual(p, b.dataset.w);
+    }));
+    if (opts.onReady) opts.onReady(box);
+    box.classList.add("open"); box.setAttribute("aria-hidden", "false");
+  }
+  function closeProduct() { const b = document.getElementById("pd-modal"); if (b) { b.classList.remove("open"); b.setAttribute("aria-hidden", "true"); } }
 
   /* ---------- Sesi ---------- */
   const SKEY = "areumi_session";
@@ -200,5 +247,5 @@
     setTimeout(() => t.remove(), 4100);
   }
 
-  window.Areumi = { CFG, DEMO, BACKEND, api, session, rupiah, esc, normWA, waLink, fmtDate, garmentSVG, productVisual, swatches, colorHex, toast };
+  window.Areumi = { CFG, DEMO, BACKEND, api, session, rupiah, esc, normWA, waLink, fmtDate, garmentSVG, productVisual, productSrc, openProduct, closeProduct, supplierLogo, swatches, colorList, colorHex, toast };
 })();

@@ -100,6 +100,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -0.04em; }
 .logo-mark { width: 32px; height: 32px; border-radius: 9px; background: var(--accent); display: grid; place-items: center; color: var(--accent-ink); }
 .logo-mark svg { width: 19px; height: 19px; }
+.logo-mark:has(img) { width: 38px; height: 38px; border-radius: 50%; background: #fff; padding: 1px; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
+.logo-mark img { width: 100%; height: 100%; border-radius: 50%; object-fit: contain; }
 .logo span em { font-style: normal; font-weight: 500; opacity: .75; }
 .nav-links { display: flex; gap: 30px; list-style: none; margin: 0 auto 0 32px; padding: 0; }
 .nav-links a { text-decoration: none; font-weight: 500; font-size: 15px; opacity: .88; }
@@ -142,7 +144,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* ---------- Kategori (bento) ---------- */
 .cat-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
 .cat-card { position: relative; grid-column: span 6; border-radius: var(--radius-lg); padding: 36px; min-height: 420px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; border: 0; background: var(--soft); color: var(--ink); cursor: pointer; text-align: left; transition: transform .3s; }
-.cat-card:nth-child(2), .cat-card:nth-child(3) { grid-column: span 6; }
+.cat-card { grid-column: span 6; }
+.cat-card.wide { grid-column: span 7; }
+.cat-card.wide + .cat-card { grid-column: span 5; }
+.cat-card:last-child { grid-column: span 12; min-height: 360px; }
 .cat-card:hover { transform: translateY(-4px); }
 .cat-card .art { position: absolute; right: -10px; bottom: -20px; width: 50%; max-width: 300px; aspect-ratio: 1; transition: transform .4s; }
 .cat-card:hover .art { transform: rotate(-5deg) scale(1.05); }
@@ -155,6 +160,42 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .cat-card:hover .go svg { transform: translateX(4px); }
 .cat-card.c1 { background: #f1ede6; } .cat-card.c2 { background: #eef3e3; } .cat-card.c3 { background: #e9eef5; }
 .cat-card.c4 { background: var(--dark); color: #fff; } .cat-card.c4 p { color: #a3a3a3; } .cat-card.c4 .tag { background: var(--accent); color: var(--accent-ink); }
+
+/* kartu kategori berfoto */
+.cat-card.photo { background: #111; color: #fff; }
+.cat-card.photo .cat-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.cat-card.photo:hover .cat-img { transform: scale(1.05); }
+.cat-card.photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.05) 30%, rgba(0,0,0,.78)); }
+.cat-card.photo > *:not(.cat-img) { position: relative; z-index: 1; }
+.cat-card.photo h3, .cat-card.photo p { max-width: 520px; }
+.cat-card.photo p { color: #e6e6e6; }
+.cat-card.photo .tag { background: rgba(255,255,255,.92); color: var(--ink); }
+
+/* ---------- Detail produk (galeri) ---------- */
+.modal-card.pd-card { width: min(1040px, 100%); position: relative; }
+.pd-x { position: absolute; right: 16px; top: 16px; z-index: 2; background: #fff; }
+.pd-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+.pd-media { padding: 20px; background: var(--soft); }
+.pd-main { position: relative; aspect-ratio: 1 / 1; border-radius: 16px; overflow: hidden; background: #fff; }
+.pd-main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.pd-main svg { position: absolute; inset: 10%; width: 80%; height: 80%; }
+.pd-thumbs { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 4px; }
+.pd-thumb { flex: none; width: 64px; height: 64px; border-radius: 10px; overflow: hidden; border: 2px solid transparent; padding: 0; cursor: pointer; background: #fff; }
+.pd-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pd-thumb.active { border-color: var(--ink); }
+.pd-info { padding: 36px 32px 32px; display: flex; flex-direction: column; gap: 14px; }
+.pd-info .sku { font-size: 12px; font-weight: 600; color: var(--muted); }
+.pd-info h3 { font-size: 28px; letter-spacing: -0.035em; padding-right: 40px; }
+.pd-spec { display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; margin: 6px 0 0; font-size: 14px; }
+.pd-spec dt { color: var(--muted); }
+.pd-spec dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pd-color { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 4px 10px 4px 5px; font-size: 13px; cursor: pointer; }
+.pd-color:hover { border-color: var(--ink); }
+.pd-color .swatch { width: 14px; height: 14px; }
+.pd-cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
+.product-media[role="button"] { cursor: zoom-in; }
+.pd-link { text-decoration: none; }
+.pd-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Katalog ---------- */
 .toolbar { display: flex; gap: 12px; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 32px; }
@@ -214,6 +255,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .sup-head h3 { font-size: 19px; letter-spacing: -0.025em; line-height: 1.2; }
 .sup-head .loc { font-size: 14px; color: var(--muted); display: flex; gap: 6px; align-items: center; margin-top: 6px; }
 .sup-head .loc svg { width: 15px; height: 15px; }
+.sup-logo { width: 56px; height: 56px; flex: none; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
+.sup-logo svg, .sup-logo img { width: 100%; height: 100%; object-fit: contain; }
+.sup-logo img { border-radius: 14px; background: #fff; }
 .sup-avatar { width: 48px; height: 48px; border-radius: 14px; background: var(--ink); color: var(--accent); display: grid; place-items: center; font-weight: 700; flex: none; letter-spacing: -0.02em; }
 .sup dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; margin: 0; font-size: 14px; }
 .sup dt { color: var(--muted); }
@@ -442,7 +486,9 @@ table.data td:first-child, table.data .badge { white-space: nowrap; }
   .nav-links, .nav-cta .btn-ghost { display: none; }
   .nav-toggle { display: grid; }
   .prod-grid, .reg-wrap, .two-col { grid-template-columns: 1fr; }
-  .cat-card, .cat-card:nth-child(2), .cat-card:nth-child(3) { grid-column: span 12; min-height: 340px; }
+  .cat-card, .cat-card.wide, .cat-card.wide + .cat-card, .cat-card:last-child { grid-column: span 6; min-height: 340px; }
+  .pd-grid { grid-template-columns: 1fr; }
+  .pd-info { padding: 24px; }
   .sup-grid, .tiers, .benefit-grid { grid-template-columns: 1fr 1fr; }
   .product-grid { grid-template-columns: repeat(2, 1fr); }
   .auth { grid-template-columns: 1fr; }
@@ -466,7 +512,7 @@ table.data td:first-child, table.data .badge { white-space: nowrap; }
   .product-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
   .product-body h3 { font-size: 15px; }
   .price-row { flex-direction: column; align-items: start; }
-  .cat-card { padding: 26px; min-height: 300px; }
+  .cat-card, .cat-card.wide, .cat-card.wide + .cat-card, .cat-card:last-child { grid-column: span 12; padding: 26px; min-height: 300px; }
   .card { padding: 24px; }
   .price-table { padding: 24px; }
   .cta-final { padding: 96px 0; }
