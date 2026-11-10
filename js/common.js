@@ -1,7 +1,8 @@
 /* AreumiVerse — utilitas bersama: API, sesi, format, ilustrasi produk */
 (function () {
   const CFG = window.AREUMI_CONFIG || {};
-  const DEMO = !CFG.API_URL;
+  const BACKEND = CFG.FIREBASE && CFG.FIREBASE.apiKey ? "firebase" : CFG.API_URL ? "sheets" : "demo";
+  const DEMO = BACKEND === "demo";
 
   /* ---------- Format ---------- */
   const rupiah = (n) => "Rp" + Number(n || 0).toLocaleString("id-ID");
@@ -22,14 +23,15 @@
   const COLORS = {
     hitam: "#232323", putih: "#f4f1ec", navy: "#25324d", merah: "#c4231f", maroon: "#6e1a24",
     "abu misty": "#a7abb0", cream: "#ece0c8", "dusty pink": "#d79c94", sage: "#a3b39a",
-    kuning: "#f2c84b", "biru muda": "#9cc7e6", pink: "#f0a9bd", "hijau mint": "#a6dcc6", "bebas pilih": "#c4231f"
+    kuning: "#f2c84b", "biru muda": "#9cc7e6", pink: "#f0a9bd", "hijau mint": "#a6dcc6", "bebas pilih": "#232323"
   };
-  const colorHex = (name) => COLORS[String(name || "").trim().toLowerCase()] || "#c4231f";
+  const colorHex = (name) => COLORS[String(name || "").trim().toLowerCase()] || "#232323";
   const shade = (hex, amt) => {
     const n = parseInt(hex.slice(1), 16);
     const c = (v) => Math.max(0, Math.min(255, v + amt));
     return "#" + [c(n >> 16), c((n >> 8) & 255), c(n & 255)].map((x) => x.toString(16).padStart(2, "0")).join("");
   };
+  const contrast = (hex) => { const n = parseInt(hex.slice(1), 16); const l = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)); return l > 160 ? "#111" : "#fff"; };
   function garmentSVG(kategori, warna) {
     const fill = colorHex(warna);
     const line = shade(fill, -38);
@@ -50,8 +52,8 @@
     } else if (k.includes("produksi")) {
       body = `<path d="M58 40 L84 30 Q100 46 116 30 L142 40 L174 74 L154 94 L140 82 L140 170 L60 170 L60 82 L46 94 L26 74 Z" fill="${fill}" stroke="${line}" stroke-width="2.5" stroke-linejoin="round"/>
         <path d="M84 30 Q100 46 116 30" fill="none" stroke="${line}" stroke-width="3"/>
-        <rect x="76" y="82" width="48" height="44" rx="4" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="6 5"/>
-        <text x="100" y="109" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="13" fill="#fff">LOGO</text>`;
+        <rect x="76" y="82" width="48" height="44" rx="4" fill="none" stroke="${contrast(fill)}" stroke-width="2.5" stroke-dasharray="6 5"/>
+        <text x="100" y="109" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="13" fill="${contrast(fill)}">LOGO</text>`;
     } else {
       body = `<path d="M58 40 L84 30 Q100 46 116 30 L142 40 L174 74 L154 94 L140 82 L140 170 L60 170 L60 82 L46 94 L26 74 Z" fill="${fill}" stroke="${line}" stroke-width="2.5" stroke-linejoin="round"/>
         <path d="M84 30 Q100 46 116 30" fill="none" stroke="${line}" stroke-width="3"/>
@@ -159,8 +161,25 @@
 
   const api = new Proxy({}, {
     get: (_, action) => async (payload) => {
-      if (DEMO) return demoApi[action](payload || {});
-      try { return await remote(action, payload); }
+      if (DEMO) {
+        if (!demoApi[action]) throw new Error("Fitur ini membutuhkan database Firebase.");
+        return demoApi[action](payload || {});
+      }
+      try {
+        if (BACKEND === "firebase") {
+          if (!window.AreumiFirebase[action]) throw new Error("Aksi tidak tersedia: " + action);
+          const call = window.AreumiFirebase[action](payload || {});
+          const isPublic = action === "products" || action === "suppliers";
+          // katalog publik tidak boleh menggantung bila Firestore lambat/tidak terjangkau
+          const res = isPublic
+            ? await Promise.race([call, new Promise((_, rej) => setTimeout(() => rej(new Error("Firestore timeout")), 8000))])
+            : await call;
+          // katalog kosong (belum di-seed) -> tampilkan data contoh
+          if ((action === "products" || action === "suppliers") && (!res || !res.length)) return demoApi[action]();
+          return res;
+        }
+        return await remote(action, payload);
+      }
       catch (err) {
         // katalog & supplier tetap tampil walau API gagal
         if (action === "products" || action === "suppliers") { console.warn("API gagal, memakai data contoh:", err); return demoApi[action](); }
@@ -181,5 +200,5 @@
     setTimeout(() => t.remove(), 4100);
   }
 
-  window.Areumi = { CFG, DEMO, api, session, rupiah, esc, normWA, waLink, fmtDate, garmentSVG, productVisual, swatches, colorHex, toast };
+  window.Areumi = { CFG, DEMO, BACKEND, api, session, rupiah, esc, normWA, waLink, fmtDate, garmentSVG, productVisual, swatches, colorHex, toast };
 })();
