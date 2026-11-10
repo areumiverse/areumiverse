@@ -1,0 +1,77 @@
+rules_version = '2';
+
+// Aturan keamanan Firestore untuk AreumiVerse.
+// Tempel seluruh isi file ini di Firebase Console > Firestore Database > Rules > Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Dokumen admins/{uid} dibuat manual oleh pemilik di Firebase Console
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // Profil mitra
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.status == 'Menunggu Verifikasi'
+        && request.resource.data.role == 'dropshipper'
+        && request.resource.data.level == 'Dropshipper';
+      // mitra hanya boleh mengubah data toko; status/level/role hanya admin
+      allow update: if isAdmin() || (signedIn() && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['nama', 'kota', 'nama_toko', 'platform']));
+      allow delete: if isAdmin();
+    }
+
+    // Nomor WA -> email, agar bisa login pakai nomor WhatsApp
+    match /wa_index/{wa} {
+      allow get: if true;
+      allow list: if isAdmin();
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['email'])
+        && request.resource.data.email == request.auth.token.email;
+      allow update, delete: if isAdmin();
+    }
+
+    // Produk publik (tanpa harga modal)
+    match /produk/{sku} {
+      allow read: if true;
+      allow create, delete: if isAdmin();
+      // mitra yang login hanya boleh MENGURANGI stok (saat membuat pesanan)
+      allow update: if isAdmin() || (signedIn()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stok'])
+        && request.resource.data.stok < resource.data.stok
+        && request.resource.data.stok >= 0);
+    }
+
+    // Harga modal hanya untuk mitra yang login
+    match /produk_modal/{sku} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /supplier/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /pesanan/{id} {
+      allow read: if signedIn() && (resource.data.user_uid == request.auth.uid || isAdmin());
+      // harga modal & total dicek terhadap data produk_modal agar tidak bisa dimanipulasi
+      allow create: if signedIn()
+        && request.resource.data.user_uid == request.auth.uid
+        && request.resource.data.status == 'Menunggu Pembayaran'
+        && request.resource.data.resi == ''
+        && request.resource.data.qty is int && request.resource.data.qty >= 1
+        && request.resource.data.harga_modal == get(/databases/$(database)/documents/produk_modal/$(request.resource.data.sku)).data.harga_modal
+        && request.resource.data.total_modal == request.resource.data.harga_modal * request.resource.data.qty;
+      allow update, delete: if isAdmin();
+    }
+  }
+}
